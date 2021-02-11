@@ -118,8 +118,8 @@ We use the https://github.com/usnistgov/trec_eval to assess the retrieval/rerank
 | T5 (Last Turn)<sub>1</sub> w/ QuReTec |0.5859|**0.1810**|0.2661|0.3296|
 
 
-## Notes
+## Todo
 
 * Add notebooks used for experiments
 * Add run files generated for initial retrieval
-* Mkae rewrite files uniform
+* Make rewrite files uniform
