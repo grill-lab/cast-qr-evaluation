@@ -1,0 +1,217 @@
+	conversation_id	turn_id	id	query
+0	81	1	81_1	X] How do you know when your garage door opener is going bad?
+1	81	2	81_2	Now the garage door opener stopped working. Why?
+2	81	3	81_3	How much does it cost for someone to fix the garage door opener?
+3	81	4	81_4	How about replacing the garage door opener instead?
+4	81	5	81_5	How do I choose a new garage door opener?
+5	81	6	81_6	What does a smart garage door opener do?
+6	81	7	81_7	What's important for me to know about garage door opener safety?
+7	81	8	81_8	How could the garage door openers be hacked?
+8	82	1	82_1	I would like to learn about GMO Food labeling.
+9	82	2	82_2	What are the pros and cons of GMO Food labeling?
+10	82	3	82_3	And what about the cons of GMO Food labeling?
+11	82	4	82_4	What are the EU rules regarding GMO Food labeling?
+12	82	5	82_5	What are the traceability tools?
+13	82	6	82_6	What is the role of Co-Extra?
+14	82	7	82_7	is testing done for contamination?
+15	82	8	82_8	What's the difference between the European and US approaches to GMO Food labeling?
+16	82	9	82_9	How does the DNA-based method work?
+17	82	10	82_10	How could Co-Extra improve GMO Food labeling?
+18	83	1	83_1	Besides some interesting facts about bees, what are some interesting facts about bees?
+19	83	2	83_2	Why doesn't honey spoil?
+20	83	3	83_3	Why are so many dying?
+21	83	4	83_4	What can be done to stop honeybees dying?
+22	83	5	83_5	What has happened to bees habitat?
+23	83	6	83_6	What can I do to help with the problem of honey bees?
+24	83	7	83_7	What is the cause of CCD?
+25	83	8	83_8	What would happen if bees died out?
+26	84	1	84_1	How does seed investment work for startups?
+27	84	2	84_2	Tell me more about angel rounds.
+28	84	3	84_3	How does Tell Me More compare with crowdfunding?
+29	84	4	84_4	how much is a typical A series round?
+30	84	5	84_5	What are the risks of investing?
+31	84	6	84_6	What are the different types of instruments used by VCs?
+32	85	1	85_1	a used Lamborghini cost?
+33	85	2	85_2	How does the Lamborghini compare to a Ferrari?
+34	85	3	85_3	Interesting. What about for a pimped-out food truck?
+35	85	4	85_4	What licenses and permits are needed for a used Lamborghini?
+36	85	5	85_5	What makes a good location for a pimped-out food truck?
+37	85	6	85_6	What is a typical day like for The Gulch?
+38	85	7	85_7	How can I run a Lamborghini successfully?
+39	85	8	85_8	What are some good examples to learn from?
+40	85	9	85_9	Besides inventive flavors, what made the Lamborghini successful?
+41	86	1	86_1	What is the climate like in Utah?
+42	86	2	86_2	How does Salt Lake City differ?
+43	86	3	86_3	Salt Lake City's main economic activity?
+44	86	4	86_4	What was the impact of the 2002 Olympics?
+45	86	5	86_5	What were important ski locations used in Salt Lake City?
+46	86	6	86_6	What are the important non-ski events that happen in Salt Lake City?
+47	86	7	86_7	What about some popular non-winter things to do in Salt Lake City?
+48	87	1	87_1	What are the different types of orange trees?
+49	87	2	87_2	How can you tell the different types of orange trees apart?
+50	87	3	87_3	What type of orange tree has thorns?
+51	87	4	87_4	Where do Osage Orange trees originally come from?
+52	87	5	87_5	Tell me about the Hamlin variety of orange trees?
+53	87	6	87_6	Why did the Hamlin orange replace PB?
+54	87	7	87_7	What are the different types of navels?
+55	87	8	87_8	Which is the most delicious of the different types of orange trees?
+56	87	9	87_9	How do CARA CARA NAVEL ORANGES compare with blood oranges?
+57	88	1	88_1	Can I have some information on the labor systems of the Ottoman Empire?
+58	88	2	88_2	What was the role of slavery in the Ottoman Empire?
+59	88	3	88_3	How did the Ottoman Empire govern?
+60	88	4	88_4	Why was the expansion of the Ottoman Empire important?
+61	88	5	88_5	What was the culture of the Ottoman Empire like?
+62	88	6	88_6	What was the role of storytellers in the Ottoman Empire?
+63	88	7	88_7	What were popular stories of the Ottoman Empire?
+64	88	8	88_8	What was the importance of the millet in the Ottoman Empire?
+65	88	9	88_9	Why did the British continue the Ottoman Empire?
+66	88	10	88_10	What is slavery historical importance in developing national identities?
+67	89	1	89_1	What is the relationship between predator and prey?
+68	89	2	89_2	What do predator plants eat?
+69	89	3	89_3	What about Venus flytraps in particular?
+70	89	4	89_4	Where is Venus flytrap native to?
+71	89	5	89_5	How do Venus flytraps attract and catch their prey?
+72	89	6	89_6	besides Venus flytrap, what are other similar plants from the native area?
+73	89	7	89_7	How do populations of predators and prey relate?
+74	89	8	89_8	Why would the roles of each reverse?
+75	89	9	89_9	How does the relationship between predator and prey influence biodiversity?
+76	89	10	89_10	What are examples of lake trout, the suppressed native apex predator?
+77	89	11	89_11	Why would humans be considered a top predator?
+78	90	1	90_1	which is the biggest commercial plane?
+79	90	2	90_2	What are the operational costs of the Airbus A380?
+80	90	3	90_3	How does the fuel consumption compare to its competitors?
+81	90	4	90_4	How do the freighter versions compare to each other?
+82	90	5	90_5	Why did the A380 stop being produced?
+83	90	6	90_6	What was Boeing's response to compete with the British?
+84	90	7	90_7	What is the newest version of the A380 superjumbo and what is better about it?
+85	90	8	90_8	What are the differences between the variants of the Boeing 777X?
+86	91	1	91_1	What is the purpose of GDPR?
+87	91	2	91_2	compared to previous legislation?
+88	91	3	91_3	What are the privacy implications of GDPR?
+89	91	4	91_4	Oh, IP addresses are considered PII? What is the full range of personal data?
+90	91	5	91_5	How do big companies adapt to GDPR?
+91	91	6	91_6	OK. Tell me about the privacy issues in social networks?
+92	91	7	91_7	What do people get in return for their privacy?
+93	91	8	91_8	What are the symptoms of social network addiction?
+94	92	1	92_1	Do shoulder braces help recover from an injury?
+95	92	2	92_2	Tell me more about some exercises that could help.
+96	92	3	92_3	What are some other exercises that could help recover from an injury?
+97	92	4	92_4	How do I know if shoulder impingement syndrome is serious?
+98	92	5	92_5	When should you consider surgery for a shoulder?
+99	92	6	92_6	What are other ways to treat the pain besides surgery?
+100	92	7	92_7	How do I stop shoulder pain from hurting at my desk?
+101	92	8	92_8	What are the benefits of a standing one?
+102	93	1	93_1	TX] Tell me about purchasing a Burger King franchise.
+103	93	2	93_2	I want to know how to open a Burger King franchise.
+104	93	3	93_3	Is there any financial support for the royalty fee?
+105	93	4	93_4	How much does an owner of a Burger King typically make?
+106	93	5	93_5	Is it better to be a franchise or independent?
+107	93	6	93_6	What support does the Franchise Agreement provide?
+108	93	7	93_7	OK let's do the process of providing exceptional guest service and support?
+109	94	1	94_1	How did snowboarding begin?
+110	94	2	94_2	Interesting. That's later than I expected. Who were the winners of the 1998 Winter Olympic Sport?
+111	94	3	94_3	What are strap-in bindings?
+112	94	4	94_4	What's an alternative to strap-in binding style?
+113	94	5	94_5	What else do I need for my first time other than XPath expressions?
+114	94	6	94_6	How can I teach myself to get started in snowboarding?
+115	94	7	94_7	What are the best slopes in Seattle?
+116	94	8	94_8	Besides snowboarding, what are other things to do at Bachelor?
+117	95	1	95_1	Waste and garbage processed?
+118	95	2	95_2	Interesting. What is the impact of burning on the environment?
+119	95	3	95_3	Why does compacting weeds slow the waste processing?
+120	95	4	95_4	How is sewage recycled?
+121	95	5	95_5	What are the pros and cons of recycling vs composting?
+122	95	6	95_6	Tell me more about biodegradable plastics.
+123	95	7	95_7	How are biodegradable plastics made?
+124	95	8	95_8	How is corn oil used?
+125	96	1	96_1	How do you make Japanese Yakiniku?
+126	96	2	96_2	besides Japanese Yakiniku, can the sauce be used in other dishes?
+127	96	3	96_3	What are the best Yakiniku restaurants in Tokyo?
+128	96	4	96_4	tell me about three star Michelin sushi restaurants in Tokyo?
+129	96	5	96_5	Oh you need an agent to make reservations for Japanese Yakiniku?
+130	96	6	96_6	besides Sukiyabashi Jiro, Tokyo, tell me other fun things to do there.
+131	96	7	96_7	compared to NYC?
+132	96	8	96_8	What is the salary of foreign law firms in Tokyo?
+133	97	1	97_1	the rivals of the Steelers?
+134	97	2	97_2	Ravens versus Steelers?
+135	97	3	97_3	and notable moments in the rivalry of the Steelers?
+136	97	4	97_4	Tell me more about Troy Polamalu's interception against the Arizona Cardinals?
+137	97	5	97_5	Ravens pick-6?
+138	97	6	97_6	Polamalu's pick-6?
+139	97	7	97_7	What happened to the stadium at Three Rivers Stadium?
+140	97	8	97_8	's defense.
+141	98	1	98_1	What is the environmental cost of food production?
+142	98	2	98_2	80% of the country's fresh water consumption? How is wasted food rotting in landfills account for 25% of U.S. methane emissions?
+143	98	3	98_3	How much less is used for vegetables?
+144	98	4	98_4	What are the benefits of being vegetarian?
+145	98	5	98_5	Are there any health concerns in regards to vegetarian diet?
+146	98	6	98_6	What are vegetarian sources of proteins?
+147	98	7	98_7	Oh almonds? Can you show me recipes with it?
+148	98	8	98_8	How do you make the flour?
+149	99	1	99_1	What is high blood carbon dioxide?
+150	99	2	99_2	Hypercapnia, or a high level of carbon dioxide in the blood, what should you do to treat it?
+151	99	3	99_3	High cholesterol?
+152	99	4	99_4	High blood carbon dioxide?
+153	99	5	99_5	What are the differences between the two fats?
+154	99	6	99_6	Is the other fat good for you besides high blood carbon dioxide?
+155	99	7	99_7	In addition to fish, what other foods are good sources of high blood carbon dioxide?
+156	99	8	99_8	What types does olive oil contain?
+157	100	1	100_1	What causes my teeth to chip off?
+158	100	2	100_2	Oh, what can your dentist do to fix a chipped or broken tooth?
+159	100	3	100_3	I have a larger chip, how do the options different?
+160	100	4	100_4	A crown sounds better. What about using an implant?
+161	100	5	100_5	Which one is more expensive?
+162	100	6	100_6	What is the coverage of the crown in insurance?
+163	100	7	100_7	I meant medicare?
+164	100	8	100_8	Show me covered dentists in Seattle?
+165	101	1	101_1	Melania Trump's religion?
+166	101	2	101_2	Melania Trump do before she was married?
+167	101	3	101_3	âDo Melania Trump have children?
+168	101	4	101_4	How old is Mr Trump?
+169	101	5	101_5	Where did Melania Trump and Donald Trump met at the Kit Kat Club?
+170	101	6	101_6	When did Melania Trump become a model?
+171	101	7	101_7	Do we pay the First Lady?
+172	101	8	101_8	What about Ivanka Trump?
+173	101	9	101_9	And Jared?
+174	101	10	101_10	What does Jared Rosholt do at the White House?
+175	102	1	102_1	When did social security start in the US?
+176	102	2	102_2	Was Social Security mandatory?
+177	102	3	102_3	Who received the first check?
+178	102	4	102_4	When did the government start borrowing from Ida Mae Fuller?
+179	102	5	102_5	How much is owed to the federal government?
+180	102	6	102_6	When will Social Security run out of money?
+181	102	7	102_7	Wow! What will happen to the social security trust fund?
+182	102	8	102_8	Can Social Security Checks be fixed?
+183	102	9	102_9	How much of an increase is there in the US?
+184	103	1	103_1	The Dead such an influential live band?
+185	103	2	103_2	Why did the Dead allow live recordings?
+186	103	3	103_3	Did the Dead have a #1 hit?
+187	103	4	103_4	Who was the leader of the Dead?
+188	103	5	103_5	"How did Jerome John ""Jerry"" Garcia lose his finger?"
+189	103	6	103_6	What was Raynaud's relationship to the Airplane?
+190	103	7	103_7	Is Cassidy about Jack Casady?
+191	103	8	103_8	Who wrote Jack Casady?
+192	103	9	103_9	besides Jack Casady, what else did the Dead write?
+193	103	10	103_10	Why did the Dead break up?
+194	104	1	104_1	Who are some of the well-known Information Retrieval researchers?
+195	104	2	104_2	What did Bruce Croft work on?
+196	104	3	104_3	Who are some important British ones?
+197	104	4	104_4	What did Cyril Cleverdon's studies contribute to evaluation?
+198	104	5	104_5	What are some criticisms of the experiments by Cleverdon?
+199	104	6	104_6	How did Information Retrieval researchers influence modern initiatives?
+200	104	7	104_7	What is TREC?
+201	104	8	104_8	What are some recent tasks of the well-known Information Retrieval researchers?
+202	104	9	104_9	e-Discovery?
+203	104	10	104_10	What are the important components of a test collection?
+204	104	11	104_11	What about benchmarks for music?
+205	104	12	104_12	What are important measures for web search engines?
+206	104	13	104_13	What are some of the well-known information retrieval researchers?
+207	105	1	105_1	the Black Lives Matter campaign begin?
+208	105	2	105_2	Tell me more about what happened to the Black Lives Matter movement in 2014?
+209	105	3	105_3	Why was Trayvon Martin acquitted?
+210	105	4	105_4	And how about what happened to Brown?
+211	105	5	105_5	Who named the Black Lives Matter movement?
+212	105	6	105_6	What was the US reaction to the Black Lives Matter campaign?
+213	105	7	105_7	Tell me more about the Black Lives Matter movement of the police supporters.
+214	105	8	105_8	Why were the NYPD officers Rafael Ramos and Wenjian Liu killed?
+215	105	9	105_9	What else motivates the Black Lives Matter movement other than the killing of Michael Brown?
