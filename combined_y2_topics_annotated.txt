@@ -1,0 +1,1860 @@
+Number: jd-1
+Title: garage door repair and replacement
+Description: Information on how to replace and repair garage doors.
+Overall comments (and approval): [LGTM --cx] [I feel this is a little blur in the first several round but latter it gets more interesting]
+
+Turn: 1-1
+Utterance: How do you know when your garage door opener is going bad?
+Resolved: How do you know when your garage door opener is going bad?
+Result(s):
+Source: bing sessions
+Comments: Few, if any clear relevant results.
+
+Turn:1-2
+Utterance: Now it's stopped working. Why?
+Resolved: Now my garage door opener stopped working. Why?
+Result(s):
+Query Turn Dependence: 1
+Notes: Make this more specific? Lots of problems with openers.
+Source: bing sessions
+Comments:
+
+Turn:1-3
+Utterance: How much does it cost for someone to fix it?
+Resolved: How much does it cost for someone to repair a garage door opener?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Source: bing sessions
+Comments: Lots of duplicates with not a lot of clear follow-up directions.
+
+Turn:1-4
+Utterance: How about replacing it instead?
+Resolved: How much does it cost to replace a garage door opener?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Source: bing sessions
+Comments:
+
+Turn:1-5
+Utterance: How do I choose a new one?
+Resolved: How do I choose a new garage door opener?
+Result(s): MARCO_7713538
+Query Turn Dependence: 1
+source: google related questions
+
+Turn:1-6
+Utterance: Which is the better type?
+Resolved: Which garage door opener is better, a belt or chain drive type?
+Result(s):
+Result Turn Dependence: 5
+Query Turn Dependence: 1
+source: google related questions, results
+
+Turn:1-7
+Utterance: What does a smart one do?
+Resolved: What does a smart garage door opener do?
+Query Turn Dependence: 1
+Result(s):
+Source: google questions
+
+Turn:1-8
+Utterance: What's important for me to know about their safety?
+Resolved: What's important for me to know about the safety of smart garage door openers?
+Result(s):
+Query Turn Dependence: 6
+Comments: There are important UL safety standards, but BERT doesn't find them...
+source: bing sessions
+
+Turn:1-9
+Utterance: How could they be hacked?
+Resolved: How could smart garage door openers be hacked?
+Result(s):
+Query Turn Dependence: 6
+Comments: Is there enough content for this?
+Source: Google questions
+
+Number: jd-2
+Title: GMO Food labeling
+Description: I would like to learn about GMO food labeling and issues around it.
+Overall comments (and approval): [LGTM --cx] [There is no explicit dependency on previous turn's results?]
+
+Turn:2-1
+Utterance: I would like to learn about GMO Food labeling.
+Resolved:  I would like to learn about GMO Food labeling.
+Result:
+Comments: relevant result: MARCO_5970604 [I actually prefer to put the result of this turn in later turns, if and only if the later turn has dependency on it (in our release), to make it more clear that this result can only be used by the automatic model in the later turn, not this turn. --cx]
+Source: bing sessions
+
+Turn:2-2
+Utterance: What are the pros and cons?
+Resolved: What are the pros and cons of GMO food labeling?
+Result: CAR_bafb3c1c72e23c444e182cac4e0ea9e4330d21c9
+Comments: The select result only covers the pros (had to go deeper than 3)
+Query Turn Dependence: 1
+Source:
+
+Turn:2-3
+Utterance: And what about the cons?
+Resolved: What are the cons of GMO food labeling?
+Result:
+Query Turn Dependence: 1
+Result Turn Dependence: 2
+Comments: MARCO_5055324 and MARCO_5970608 relevant.
+Source:
+
+Turn:2-4
+Utterance: What are the EU rules?
+Resolved: What are the GMO food labeling rules in the EU?
+Result:
+Query Turn Dependence: 1
+Comments:
+Source:
+
+Turn:2-5
+Utterance: Tell me more about traceability tools.
+Resolved:  Tell me about traceability tools for GMO foods in the EU.
+Query Turn Dependence: 4
+Result: CAR_ef401a18f4f95523ee060e42b474d433f61b6cad
+Comments: CAR_13c9e6746b3b17f354633aafb3404d8ce56943ed, CAR_6ff20ba5282f81fef863a312f44d3ab2b65a81e2
+Source:
+
+Turn:2-6
+Utterance: What is the role of Co-Extra?
+Resolved: What is the role of Co-Extra in GMO food traceability in the EU?
+Result Turn dependence: 5
+Query Turn Dependence: 1,4
+Result(s):
+Comments: CAR_ef401a18f4f95523ee060e42b474d433f61b6cad, CAR_ad707e094a5475b5b0a35ab384901cb37e750c7d
+Source:
+
+Turn:2-7
+Utterance: How is testing done for contamination?
+Resolved: How is food tested for GMO contamination?
+Query Turn Dependence: 1
+Result(s):
+Comments: Is there a good result for this to connect to PCR?  https://en.wikipedia.org/wiki/Detection_of_genetically_modified_organisms
+Source:
+
+Turn:2-8
+Utterance: What's the difference between the European and US approaches?
+Resolved: What's the difference between the European Union and United States approaches to testing for GMO food contamination?
+Query Turn Dependence: 7
+Result(s): CAR_5669ae19c48aee4d3cb399c9fac8fb123be5aa7e
+Comments: Wiki article
+Source:
+
+Turn:2-9
+Utterance: How does the DNA-based method work?
+Resolved: How does the DNA-based method work for testing GMO contamination.
+Result(s):
+Query Turn Dependence: 1, 7
+Comments: Google results
+Source:
+
+Turn:2-10
+Utterance: How could Co-Extra improve it?
+Resolved: How could Co-Extra improve DNA-based testing for GMO contamination?
+Result(s):
+Query Turn Dependence: 1, 7, 9
+Comments: From wiki article
+Source:
+
+Number: jd-3
+Title: Importance of bees
+Description: Information about bees, their importance, and how to help them
+Overall comments (and approval): [A copy error below? I suppose you will add the topic ids and turn ids later too? --cx]
+
+Turn:3-1
+Utterance: What are some interesting facts about bees?
+Resolved: What are some interesting facts about bees?
+Result(s): MARCO_270579
+Comments:
+Source: Bing
+
+Turn:3-2
+Utterance: Why doesn’t it spoil?
+Resolved: Why doesn’t honey spoil?
+Result(s):
+Result Turn Dependence: 1
+Comments:
+Source:
+
+Turn:3-3
+Utterance: Why are so many dying?
+Resolved: Why are so many bees dying?
+Query Turn Dependence: 1
+Result(s):
+Comments:
+Source: Bing session
+
+Turn:3-4
+Utterance: What can be done to stop it?
+Resolved: What can be done to stop bees from dying?
+Query Turn Dependence: 3
+Result(s):
+Comments:
+Source: me
+
+Turn:3-5
+Utterance: What has happened to their habitat?
+Resolved: What has happened to bee habitat?
+Result(s):
+Query Turn Dependence: 1
+Comments: Not really - from bing session. Most results are irrelevant. CAR_d256bd4b2070f4b09ff1de021d6679070df6b2e3 is relevant [is there an implicit dependency on previous results? --cx]
+Source: Bing
+
+Turn:3-6
+Utterance: What can I do to help with the problem?
+Resolved: What can I do to help provide a habitat for bees?
+Query Turn Dependence: 1, 5
+Result(s):
+Comments: Some good results - MARCO_5268578
+Source:
+
+Turn:3-7
+Utterance: What is the cause of CCD?
+Resolved: What is the cause of colony collapse disorder?
+Result(s):
+Comments: [Is this related to last turn? --cx]
+Source: google questions
+
+Turn:3-8
+Utterance: What would happen if they died out?
+Resolved: What would happen if the bees died out?
+Query Turn Dependence: 1
+Result(s):
+Comments:
+Source: google questions
+
+Number: jd-4
+Title: Early stage startup investment
+Description: I would like to learn about seed investing, angel investing, and early stage VC methods.
+Overall comments (and approval): JD: This is a bit shallow; reliable content is mediocre. [LGTM, though I'd like to grow the topic a little deeper --cx]
+
+Turn:4-1
+Utterance: How does seed investment work for startups?
+Resolved: How does seed investment work for startups?
+Result(s): CAR_fef4c224bb39283d6c8f49190c9855514e0b7fa5
+Comments:
+Source: bing
+
+Turn:4-2
+Utterance: Tell me more about angel rounds.
+Resolved: Tell me more about angel investment rounds.
+Result(s):
+Query Turn Dependence: 1
+Comments: CAR_1c7a13b897738e88818978c631788cc1d00f8429, CAR_c9e5356f2192014b8b28d4137f6b4eadf185f43e
+Source: results / bing session
+
+Turn:4-3
+Utterance: How does it compare with crowdfunding?
+Resolved: How does an angel investment round compare with crowdfunding?
+Query Turn Dependence: 1, 2
+Result(s): CAR_dc9f9650520a47574a6fc0a0e7af22a5f2043219
+Comments:
+Source:
+
+Turn:4-4
+Utterance: How much is a typical A series round?
+Resolved: How much is a typical A series investment round?
+Result(s):
+Query Turn Dependence: 1
+Comments: CAR_8775ef8c3e31222fb7adfae907695d416c5ee917 result not needed?
+Source:
+
+Turn:4-5
+Utterance: What are the risks of investing?
+Resolved: What are the risks of investing in startups?
+Query Turn Dependence: 1
+Result(s):
+Comments: Relevant results are sparse. partially relevant - CAR_8bc96cbdddbc7ddc64fa08761f7adb77324c1916
+Source:
+
+Turn:4-6
+Utterance: What are the different types of instruments used by VCs?
+Resolved: What are the different types of instruments used by Venture Capitalists?
+Result(s):
+Comments: This is really hard; is there much relevant content? It was sparse.
+Source: Bing
+
+
+Number: jd-5
+Title: starting a food truck business
+Description: The process of starting a food truck business and being successful.
+Overall comments (and approval): JD: some of these are hard, content is sparse. [LGTM, but I prefer more round on the Lamborghini part and then shift? --cx]
+
+Turn:5-1
+Utterance: How much does a used Lamborghini cost?
+Resolved: How much does a Lamborghini cost?
+Result(s):
+Comments:
+Source: bing session
+
+Turn:5-2
+Utterance: How does it compare to a Ferrari?
+Resolved: How does a Lamborghini compare to a Ferrari?
+Query Turn Dependence: 1
+Result(s):
+Comments:
+Source: google related questions
+
+Turn:5-3
+Utterance: Interesting. What about for a pimped-out food truck?
+Resolved: Interesting. How much does a pimped-out food truck cost?
+Query Turn Dependence: 1
+Result(s):
+Comments: slightly dependent on 5-1
+Source: bing session
+
+Turn:5-4
+Utterance: What licenses and permits are needed?
+Resolved: What licenses and permits are needed for a food truck?
+Result(s):
+Query Turn Dependence: 3
+Comments: MARCO_1490466
+Source: bing
+
+Turn:5-5
+Utterance: What makes a good location?
+Resolved: What makes a good food truck location?
+Result(s):
+Query Turn Dependence: 3
+Comments:
+Source:
+
+Turn:5-6
+Utterance: What is a typical day like?
+Resolved: What is a typical day like running a food truck?
+Result(s):
+Query Turn Dependence: 3
+Comments: MARCO_2524409
+Source:
+
+Turn:5-7
+Utterance: How can I run it successfully?
+Resolved: How can I run a successful food truck?
+Result(s):
+Query Turn Dependence: 3
+Comments: MARCO_5298497
+Source:
+
+Turn:5-8
+Utterance: What are some good examples to learn from?
+Resolved: What are some good examples of successful food trucks to learn from?
+Result(s): CAR_b883f1a3da907f244282172cfdbd01f3e3905d0e
+Query Turn Dependence: 3
+Comments:
+Source:
+
+Turn:5-9
+Utterance: Besides inventive flavors, what made it successful?
+Resolved: Besides inventive flavors, what made Kogi successful?
+Result(s):
+Result Turn Dependence: 8
+Comments: https://en.wikipedia.org/wiki/Kogi_Korean_BBQ
+Source:
+
+Number: JD-6
+Title: Salt Lake City
+Description: Salt Lake City tourism, history, and activities.
+Overall comments (and approval): [LGTM --cx]
+
+Turn:6-1
+Utterance: What is the climate like in Utah?
+Resolved: What is the climate like in Utah?
+Result(s):
+Comments: Lots of duplicates. MARCO_4705480
+Source: Google questions
+
+Turn:6-2
+Utterance: How does Salt Lake City differ?
+Resolved: How does the climate of Salt Lake City differ from Utah overall?
+Result(s):
+Query Turn Dependence: 1
+Comments: MARCO_158599
+Source:
+
+Turn:6-3
+Utterance: What is its main economic activity?
+Resolved: What is the main economic activity of Salt Lake City?
+Result(s): CAR_717b11440aba32158dba995d76fb5c6a4a9b5ccb
+Query Turn Dependence: 2
+Comments:
+Source:
+
+Turn:6-4
+Utterance: What was the impact of the 2002 games?
+Resolved: What was the impact of the 2002 olympic winter games on the economy of Salt Lake City?
+Query Turn Dependence: 2,3
+Result Turn Dependence: 3
+Result(s):
+Comments:  CAR_85a400316f0e7e7a611d5ee779bbdd890df08e82;
+Source:
+
+Turn:6-5
+Utterance: What were important ski locations used?
+Resolved: What were important ski locations used in the 2002 olympic winter games?
+Result(s):
+Query Turn Dependence: 4
+Comments: CAR_2c5b5a599f0f25c598f01080aa9db5d7d057f88d, CAR_0e12b4c2836766271af5854f75184d83c905474c
+Source:
+
+Turn:6-7
+Utterance:  What are the important non-ski events that happen in the city?
+Resolved: What are the important non-ski events that happen in Salt Lake City?
+Result(s):
+Query Turn Dependence: 2
+Comments:  No relevant results due to negation handling; should get to sundance film festival.
+Source:
+
+Turn:6-8
+Utterance: What about some popular non-winter things to do in the area?
+Resolved: What are some popular non-winter things to do in the Salt Lake City area?
+Result(s): CAR_eefcb283c555c83a7d5535ccf6ec7efbfa9001a9
+Query Turn Dependence: 2
+Comments:  (hard query - most systems can’t handle the negation and rewrite of “things to do” to activities.). Indirectly from wasatch mountains summer wildflower festival) - MARCO_1890936.
+Source:
+
+Number: JD-7
+Title: Types of orange trees
+Description: Information about different types or orange trees and the flavor of the oranges produced.
+Overall comments (and approval): [LGTM, --cx] [this one and the past several ones are very much like Y1 topics. I think we can grow them deeper and with more dependency on the response, but time is a factor here and we may have enough deeper ones. --cx]
+
+Turn:7-1
+Utterance: What are the different types of orange trees?
+Resolved: What are the different types of orange trees?
+Result(s):
+Comments: MARCO_7161299
+Source: Bing/Google questions
+
+Turn:7-2
+Utterance: How can you tell them apart?
+Resolved: How can you tell different types of orange trees apart?
+Result(s):
+Query Turn Dependence: 1
+Comments:
+Source: Bing
+
+Turn:7-3
+Utterance: What type has thorns?
+Resolved: What type of orange tree has thorns?
+Result(s):
+Query Turn Dependence: 1
+Comments: MARCO_5272302
+Source: Bing
+
+Turn:7-4
+Utterance: Where do they originally come from?
+Resolved: Where do orange trees originally come from?
+Result(s):
+Query Turn Dependence: 1
+Comments:  poor quality results, needs rewriting - answers: CAR_e329b876005e0edde984c7e8c8303f8573749a56, CAR_c9f991491babf2b40ce63c0972e7584aff388bdc, CAR_68c0cb28a26c8abb8d82dcaf45b044aba0c65417
+Source: Google
+
+Turn:7-5
+Utterance: Tell me about the Hamlin variety.
+Resolved: Tell me about the Hamlin orange variety.
+Query Turn Dependence: 1
+Result(s): CAR_324a662bc5882c7008be352a502ab559cd54bada
+Comments:
+Source: Bing
+
+Turn:7-6
+Utterance: Why did it replace PB?
+Resolved: Why did the Hamlin orange replace the Parson Brown variety?
+Query Turn Dependence: 5
+Result(s):
+Result Turn Dependence: 5
+Comments:
+Source: results
+
+Turn:7-7
+Utterance: What are the different types of navels?
+Resolved: What are the different types of navel oranges?
+Result(s):
+Query Turn Dependence: 1
+Comments:  MARCO_7016262 The previous doc mentions cara-cara red navels.  Maybe a followup question about them.
+Source: Bing
+
+Turn:7-8
+Utterance: Which is the most delicious?
+Resolved: Which type of navel orange is the most delicious?
+Query Turn Dependence: 1, 7
+Result(s): MARCO_3314889
+Comments:  flavor here would be easier.
+Source: Bing
+
+Turn:7-9
+Utterance: How do they compare with blood oranges?
+Resolved: How do cara cara oranges compare with blood oranges?
+Result(s):
+Result Turn Dependence: 8
+Comments:  Requires the previous result talking about cara-cara's.
+Source:
+
+Number: JD-8
+Title: The Ottoman Empire
+Description: Information about the culture and economy of the Ottoman Empire.
+Overall comments (and approval): [Missing reference response in the last turn? --cx]
+
+Turn:8-1
+Utterance: Can I have some information on the labor systems of the Ottoman Empire?
+Resolved: Can I have some information on the labor systems of the Ottoman Empire?
+Result(s):
+Comments: CAR_7bbedcbdd0b9511990576803907c66a5da6d1bbf
+Source: Bing
+
+Turn:8-2
+Utterance: What was the role of slavery?
+Resolved: What was the role of slavery in the labor system of the Ottoman Empire?
+Result(s):
+Query Turn Dependence: 1
+Comments:  CAR_4c3d06704732280aae6957cd9eaa4198bd599905, CAR_2be2d955549e891e36c084e2ae137f7d7774d14f https://en.wikipedia.org/wiki/Slavery_in_the_Ottoman_Empire
+Source: Bing
+
+Turn:8-3
+Utterance: How did it govern?
+Resolved: How did the Ottoman Empire govern?
+Query Turn Dependence: 1
+Result(s): MARCO_2050021
+Comments:  hard query without reformulation. See: https://en.wikipedia.org/wiki/State_organisation_of_the_Ottoman_Empire
+Source:
+
+Turn:8-4
+Utterance:  Why was it important?
+Resolved: Why was the Ottoman Empire important?
+Query Turn Dependence: 1
+Result(s):
+Comments:
+Source:
+
+Turn:8-4
+Utterance: What was the culture like?
+Resolved: What was the culture like in the Ottoman Empire?
+Query Turn Dependence: 1
+Result(s): CAR_c3e750ac79654de5a4a3aee67e05a031da8f103f
+Comments:  https://en.wikipedia.org/wiki/Culture_of_the_Ottoman_Empire
+Source:
+
+Turn:8-5
+Utterance: What was the role of storytellers?
+Resolved: What was the role of storytellers in the culture of the Ottoman Empire?
+Query Turn Dependence: 1,4
+Result(s): CAR_4f48e3253dde08e82041199358a6b9cd2da099ea
+Comments: (note: relevant result was not retrieved) https://www.google.com/url?q=https://en.wikipedia.org/wiki/Meddah
+Source:
+
+Turn:8-6
+Utterance: What were popular stories they told?
+Resolved: What were popular stories told by meddahs in the Ottoman Empire?
+Result(s):
+Result Turn Dependence: 5
+Comments: story teller is implied reference to meddahs from result [add referenced doc here? --cx]
+Source:
+
+Turn:8-7
+Utterance: What was the importance of the millet?
+Resolved: What was the importance of the confessional millet system to the Ottoman Empire?
+Query Turn Dependence: 1
+Result(s):
+Comments:
+Source:
+
+Turn:8-8
+Utterance: Why did the British continue it?
+Resolved: Why did the British continue the confessional millet system from the Ottoman Empire?
+Query Turn Dependence: 1,7
+Result(s):
+Comments:
+Source:
+
+Turn:8-9
+Utterance: What is its historical importance in developing national identities?
+Resolved: What is the historical importance of the confessional millet system in the development of national identities?
+Query Turn Dependence: 7
+Result(s):
+Comments:
+Source:
+
+Number: JD-9
+Title: predator and prey relationships
+Description:
+Overall comments (and approval): [LGTM --cx] [I do wish we have more references to the responses]
+
+Turn:9-1
+Utterance: What is the relationship between predator and prey?
+Resolved: What is the relationship between predator and prey?
+Result(s):
+Comments: MARCO_3503895
+Source:
+
+Turn:9-2
+Utterance: What do predator plants eat?
+Resolved: What do predator plants eat?
+Result(s):
+Comments: MARCO_1712829
+Source:
+
+Turn:9-3
+Utterance: What about Venus flytraps in particular?
+Resolved: What do Venus flytraps eat?
+Query Turn Dependence: 2
+Result(s):
+Comments:  MARCO_1025318 eat requires reformulation.
+Source:
+
+Turn:9-4
+Utterance: Where is it native to?
+Resolved: Where is the Venus flytrap native to?
+Query Turn Dependence: 3
+Result(s): MARCO_2653125
+Comments:
+Source:
+
+Turn:9-5
+Utterance: How do they attract and catch their prey?
+Resolved: How do Venus flytraps attract and catch their prey?
+Result(s):
+Query Turn Dependence: 3
+Comments: CAR_351105e2e8ae229daec2d3cefd4ecbce9a431285
+Source:
+
+Turn:9-6
+Utterance: What are other similar plants from its native area?
+Resolved: What other carnivorous plants are native to North and South Carolina?
+Result(s):
+Query Turn Dependence: 3
+Result Turn Dependence: 4
+Comments: CAR_5ffd0aafc13b030ff9710bba4f4bd2af76b20364
+Source:
+
+Turn:9-7
+Utterance: How do populations of predators and prey relate?
+Resolved: How do populations of predators and prey relate?
+Result(s): CAR_10a90d52de0763ca7d00296ab650eb0e0c0c0d0f
+Comments:
+Source:
+
+Turn:9-8
+Utterance: Why would the roles reverse?
+Resolved: Why would the roles of predator and prey reverse?
+Result(s):
+Query Turn Dependence: 7
+Comments: CAR_e9a143edb9f86d06c3c152951da1ee10453bef18
+Source:
+
+Turn:9-9
+Utterance: How does the relationship influence biodiversity?
+Resolved: How do predators and prey influence biodiversity?
+Result(s): CAR_687e2f172136457f76c7446807568880b361fb90
+Query Turn Dependence: 7
+Comments:
+Source:
+
+Turn:9-10
+Utterance: What are examples of these predators?
+Resolved: What are examples of apex predators?
+Result(s): MARCO_2117043
+Result Turn Dependence: 9
+Comments:
+Source:
+
+Turn:9-11
+Utterance: Why would humans be considered one?
+Resolved: Why would humans be considered apex predators?
+Result(s):
+Query Turn Dependence: 10
+Comments: CAR_c7d64407ad78dbd06f1b36e588ac76ba2856fbc7
+Source:
+
+Number: JD-10
+Title: Airbus aircraft
+Description: Information on varying Airbus aircraft and a comparison against other manufacturers
+Overall comments (and approval): JD: I think this needs a bit more complex structure and comparison; a bit too factoidy and linear. [I agree, seems a bunch of factoid questions around one entity. --cx]
+
+Turn:10-1
+Utterance: Which is the biggest commercial plane?
+Resolved: Which is the biggest commercial plane?
+Result(s): MARCO_4698523
+Comments:
+Source:
+
+Turn:10-2
+Utterance: What are its operational costs?
+Resolved: What are the operational costs of the Airbus A380?
+Result(s): MARCO_1961312
+Result Turn Dependence: 1
+Comments:
+Source:
+
+Turn:10-3
+Utterance: How does its fuel consumption compare to its competitors?
+Resolved: How does the Airbus A380 fuel consumption compare to its competitors?
+Result(s): CAR_cf435ec8bb05cd7b2a59723327748b449f5e396d
+Result Turn Dependence: 1
+Comments:
+Source:
+
+Turn:10-4
+Utterance: How do the freighter versions compare to each other?
+Resolved: How do the freighter versions of the Airbus A380 and Boeing 747 compare to each other?
+Result(s):
+Result Turn Dependence: 3
+Comments: CAR_dfa48647380ab554ec632ae444fe4fb48a0d2c92
+Source:
+
+Turn:10-5
+Utterance: Why did the A380 stop being produced?
+Resolved: Why did the Airbus A380 stop being produced?
+Result(s):
+Comments: CAR_ffd5cecd30344df1ce750f82ac9cdd753d60d9cf
+the use of the Airbus keyword is critical for the correct answer with CAsT search
+Source: google questions
+
+Turn:10-6
+Utterance: What was Boeing’s response to compete with it?
+Resolved: What was Boeing’s response to compete with the Airbus A380?
+Query Turn Dependence: 5
+Result(s): CAR_c36e4c56b145fc6cee2a79ae590ba6c9c6744415
+Comments:
+Source: Google questions
+
+Turn:10-7
+Utterance: What is the newest version and what is better about it?
+Resolved: What is the newest version of the Boeing 777 and what is better about it?
+Result Turn Dependence: 6
+Result(s): CAR_c4e959390e7f6ba142cdaca9a017cd016c2a6cb2
+Comments:
+Source:
+
+Turn:10-8
+Utterance: What are the differences between the variants?
+Resolved: What are the differences between the Boeing 777X-8 and 777X-9?
+Result Turn Dependence: 7
+Result(s):
+Comments:
+Source:
+
+
+Number: cx-1
+Description: learn about GDPR, the privacy issues in social networks, and the addiction of it.
+Source: QA-GEN Sessions: gdpr  purpose of gdpr    how are big companies to be compliant with the gdpr    today gdrp compliance rate regulations before gdpr
+
+Turn:1-1
+Utterance: What is the purpose of GDPR?
+Resolved: What is the purpose of GDPR?
+Result(s): CAR_41c3a17bc670dbeb1ff5d322cfc39431aabbb671
+Notes:
+Source:
+
+Turn:1-2
+Utterance: What is different compared to previous legislation?
+Resolved: What is different between GDPR and EU Data Protection Directive 95/46/EC?
+Result(s):
+Result Turn Dependence: 1
+Query Dependence:
+Notes:
+Source:
+
+Turn:1-3
+Utterance: What are the privacy implications of those technologies?
+Resolved: What are the privacy implications of social networks and cloud computing?
+Result(s): MARCO_1109622
+Result Turn Dependence: 1
+Notes: reformulated to query "GDPR social networks"
+Comment:
+Source:
+
+Turn:1-4
+Utterance: Oh, IP addresses are considered PII? What is the full range of personal data?
+Resolved:  Oh, IP addresses are considered PII? What is the full range of personal data defined in GDPR?
+Result(s):
+Result Turn Dependence: 3
+Notes:
+
+Turn:1-5
+Utterance: How do big companies adapt to GDPR?
+Resolved: How do big companies in the US adapt to GDPR?
+Result(s):
+Notes:
+Source:
+
+Turn:1-6
+Utterance: OK. Tell me about the privacy issues in social networks.
+Resolved: OK. Tell me about the privacy issues in social networks.
+Result(s): CAR_17e18a95aa7892169934f8befe9432bb8e33b31c
+Notes: "privacy issues in social networks"
+Source:
+
+Turn:1-7
+Utterance: What do they get in return for their privacy?
+Resolved: What do users of social networks get in return for by giving up their privacy?
+Result(s): CAR_a78a2f41b72eda46b9b17eee5420eca6232cdb55
+Result Turn Dependence: 6
+Notes:
+
+Turn:1-8
+Utterance: What are the symptoms of that addiction?
+Resolved: What are the symptoms of social network addiction?
+Result(s):
+Result Turn Dependence: 7
+Notes:
+
+
+Number: cx-2
+Title: shoulder injury
+Description: Find the right support for an injured shoulder, ways to speed its recovery, and prevent further damage in office work.
+Source: QA-GEN: shoulder braces    taping shoulder    exercise for shoulder  shoulder surgery   recovery from shoulder surgery
+
+Turn:2-1
+Utterance: Do shoulder braces help recover from an injury?
+Resolved: Do shoulder braces help recover from an injury?
+Result(s):
+Notes:
+Source:
+
+Turn:2-2
+Utterance: Tell me more about some exercises that could help.
+Resolved: Tell me more about some shoulder exercises that could help recovery from an injury.
+Result(s): MARCO_5757628
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:2-3
+Utterance: What are some others?
+Resolved: What are other exercises besides Pendulum circles for shoulder injuries?
+Result(s):
+Result Turn dependence: 2
+Notes:
+Source:
+
+Turn:2-4
+Utterance: How do I know if it’s serious?
+Resolved: How do I know if my shoulder pain is serious?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:2-5
+Utterance: When should you consider surgery?
+Resolved: When should you consider shoulder surgery?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:2-6
+Utterance: That seems extreme. What are other ways to treat the pain?
+Resolved: That seems extreme. What are other ways to treat shoulder pain?
+Result(s): MARCO_3570267
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:2-7
+Utterance: How do I stop it from hurting at my desk?
+Resolved: How do I stop my shoulder from hurting at my desk?
+Result(s): MARCO_6797292
+Query Turn Dependence: 1
+Notes:
+Source: google related questions
+
+
+Turn:2-8
+Utterance: What are the benefits of a standing one?
+Resolved: What are the benefits of a standing desk for shoulder pain?
+Result(s):
+Result Turn Dependence: 7
+Notes:
+Source:
+
+
+Number: cx-3
+Title: Buying a Burger King franchise
+Description: Learn about purchasing a franchise (chain) restaurant of burger king, the finance of it, and potential revenue/profit from this investment.
+Source: QA-GEN: purchase of burger king franchise purchase franchise conditions   pros and cons about owning a franchise revenue generated per franchise
+Comments: JD - I think this topic needs reworking to be less factoidy.
+
+Turn:3-1
+Utterance: Tell me about purchasing a Burger King franchise.
+Resolved: Tell me about purchasing a Burger King franchise.
+Result(s): CAR_2fd6972ceb67c5576d5250087cf78cef29f290b6
+Notes:
+Source:
+
+Turn:3-2
+Utterance: No, not information about its acquisition. I want to know how to open a franchise.
+Resolved: No, not information about Burger King’s acquisition. I want to know how to open a Burger King franchise.
+Result(s): MARCO_4332525
+Result Turn dependence: 1
+Notes:
+Source:
+
+Turn:3-3
+Utterance: Is there any financial support for the fee?
+Resolved: Is there any financial support for the initial franchise fee of a Burger King restaurant?
+Result(s):
+Result Turn Dependence: 2
+Notes:
+Source: 3-2: MARCO_4332525
+
+
+Turn:3-4
+Utterance: How much does an owner typically make?
+Resolved: How much does a Burger King franchise owner make?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Comments: JD this feels factoidy to me.
+Source:
+
+Turn:3-5
+Utterance: Is it better to be a franchise or independent?
+Resolved: Is it better to be a Burger King franchisee or an independent restaurant owner?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Source:
+
+Turn:3-7
+Utterance: What support does it provide?
+Resolved: What support does the franchise provide?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Source: 3-6: MARCO_5722169
+
+Turn:3-8
+Utterance: OK let's do it. What is the process?
+Resolved: OK let's do it. What is the process of buying a Burger King franchise?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Number: cx-4
+Title: Snowboarding
+Description: Learn about the invention of the snowboard, sporting events, the equipment, how to get started, and planning a trip.
+Source:
+Comment: https://en.wikipedia.org/wiki/Snowboard
+
+Turn:4-1
+Utterance: How did snowboarding begin?
+Resolved:
+Result(s): CAR_091bb05e583e685bdfa721adf0fd7dedf1303040
+Notes:
+Source:
+
+Turn:4-2
+Utterance: Interesting. That’s later than I expected. Who were the winners?
+Resolved: Interesting. That’s later than I expected. Who were the winners of snowboarding events in the 1998 Winter Olympics?
+Result(s):
+Result Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-3
+Utterance: What are strap-in bindings?
+Resolved: What are strap-in snowboard bindings?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Comments: JD - Should this refer to turn one? Unclear to me.
+Source:
+
+Turn:4-4
+Utterance:  What’s an alternative to this binding style?
+Resolved: What’s an alternative to the strap-in binding style for snowboarding?
+Result(s):
+Notes:
+Query Turn Dependence: 3
+Source: google questions
+
+Turn:4-5
+Utterance: What else do I need for my first time?
+Resolved: What else besides bindings do I need for my first time snowboarding?
+Result(s):
+Notes:
+Query Turn Dependence: 1
+Source:
+
+Turn:4-6
+Utterance: How can I teach myself to get started?
+Resolved: How can I teach myself to get started snowboarding?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-7
+Utterance: What are the best slopes in Seattle?
+Resolved: What are the best snowboarding slopes for beginners around Seattle?
+Result(s):
+Result Turn Dependence: 6
+Notes: "the best snowboarding in Seattle"
+Source: 4-6: CAR_091bb05e583e685bdfa721adf0fd7dedf1303040
+
+Turn:4-8
+Utterance: What are other things to do at Bachelor?
+Resolved: What are other things to do at Mount Bachelor Ski & Sports
+Result(s):
+Notes: shifting from learn to action
+Source: 4-7: CAR_2babe6914eb90865fe0b020cdbe3b16b06e30ada
+Result Turn Dependence: 7
+
+Number: cx-5
+Title: Waste management
+Description: learn about waste management, garbage types, different ways of recycling, and the best practices to protect our environments
+Source: QA-GEN Sessions: wasting garbage   changes of it  environment effect of decomposable bird diseases  bird diseases caused by garbage
+
+Turn:5-1
+Utterance: How are waste and garbage processed?
+Resolved:
+Result(s):CAR_ceaa49bdec39db2a76a6a8528e70a6830433f8d8
+Notes:
+Source:
+
+Turn:5-2
+Utterance: Interesting. What is the impact of burning on the environment?
+Resolved: Interesting. What is the impact of burning waste and garbage on the environment?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:5-3
+Utterance: So you can also compact them; why does it slow the waste processing?
+Resolved:  Why waste compaction slows the biodegradation of organic waste?
+Result(s):
+Result Turn Dependence: 1
+Notes: CAR_ceaa49bdec39db2a76a6a8528e70a6830433f8d8
+Source: 5-1:
+
+Turn:5-4
+Utterance: How is sewage recycled?
+Resolved: How is sewage recycled?
+Result(s):
+Result Turn Dependence:
+Notes:
+
+Turn:5-5
+Utterance: What are the pros and cons of recycling vs composting?
+Resolved: What are the pros and cons of recycling vs composting garbage?
+Result(s): CAR_3c98982c7f8f38176454a881accf2a0f9a8250a4
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:5-6
+Utterance: Tell me more about biodegradable plastics.
+Resolved: Tell me more about biodegradable plastics.
+Result(s):
+Notes:
+Source:
+
+Turn:5-7
+Utterance: How are they made?
+Resolved: How are biodegradable plastics made?
+Result(s): MARCO_8217309
+Query Turn Dependence: 6
+Notes:
+Source:
+
+
+Turn:5-8
+Utterance: How is corn oil used?
+Resolved: How is corn oil used to make biodegradable plastics?
+Result(s):
+Result Turn Dependence: 7
+Notes:
+Source:
+
+
+Number: cx-6
+Title: Japan food and culture
+Description: Japan food, travel, living, and the plan to move there
+Source: QA-GEN: yakiniku in japan  ginza sushi place  uni rice in ginza  remote working in japan foreign law firm in japan  cost of living in tokyo    compared to seattle lawyer salary in tokyo
+Comment: JD - these topic is in the right direction but needs revision.
+
+
+Turn:6-1
+Utterance: How do you make Japanese Yakiniku?
+Resolved: How do you make Japanese Yakiniku?
+Result(s):
+Notes:
+Source:
+
+Turn:6-2
+Utterance: Can the sauce be used in other dishes?
+Resolved: Can the sauce for Yakiniku be used in other dishes?
+Result(s):
+Notes:
+Source: 6-1: How to make Japanese Yakiniku? MARCO_5233682
+
+
+Turn:6-3
+Utterance: What are the best Yakiniku restaurants in Tokyo?
+Resolved: What are the best Yakiniku restaurants in Tokyo?
+Result(s):
+Notes:
+Source:
+
+Turn:6-4
+Utterance: Tell me Sushi Michelin restaurants there.
+Resolved: Tell me Sushi Michelin restaurants in Tokyo.
+Result(s):
+Notes:
+Query Turn Dependence: 3
+Source:
+
+
+Turn: 6-5
+Utterance: Oh you need an agent to make reservations?
+Resolved: How do I make dinner reservations in Tokyo restaurants?
+Result(s):
+Result Turn Dependence: 4
+Notes:
+Source: 6-4: MARCO_3459123Tokyo
+
+Turn:6-6
+Utterance: Tell me other fun things to do there.
+Resolved: Tell me what other fun things there are to do in Tokyo besides eating.
+Result(s):
+Notes:
+Query Turn Dependence: 3
+Source:
+
+Turn:6-7
+Utterance: What is the cost of living there compared to NYC?
+Resolved: What is the cost of living in Tokyo compared to New York City (NYC)?
+Result(s):
+Query Turn Dependence: 3
+Notes:
+Source:
+
+Turn:6-8
+Utterance: What is the salary of foreign law firms there?
+Resolved: What is the salary of working in foreign law firms in Tokyo?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 3
+
+
+Number: cx-7
+Title: Pittsburgh Steelers
+Description: learn about the history of steelers, rivals, players, and styles of NFL plays
+Source: inspired by QA-GEN
+
+Turn:7-1
+Utterance: What are the rivals of the Steelers?
+Resolved:
+Result(s): CAR_b410d735cf27416856835beb58a92e475dd14ede
+Notes:
+Source:
+
+Turn:7-2
+Utterance: What are notable games between Ravens versus Steelers?
+Resolved: What are notable games between Baltimore Ravens versus Pittsburgh Steelers
+Result(s):
+Notes:
+Source:
+
+Turn:7-3
+Utterance: And notable moments in their rivalry?
+Resolved: What are notable moments in the Ravens and Steelers rivalry?
+Result(s): CAR_71ed7fc6d6da727737e614b8cb20a017096ea41f
+Notes:
+Source:
+Query Turn Dependence: 2
+
+Turn:7-4
+Utterance: Tell me more about that Polamalu interception.
+Resolved: Tell me more about Polamalu’s Interception versus Ravens in the 2008 AFC Championship game.
+Result(s):CAR_cdcdb70ce559cd3592dcc5f0bf6352705764bbba
+Notes:
+Source:
+Result Turn Dependence: 3
+
+Turn:7-5
+Utterance: How about his pick-6?
+Resolved: How about Polamalu's interception return touchdown?
+Result(s):
+Notes:
+Source:
+Result Turn Dependence: 4
+
+Turn:7-6
+Utterance: Tell me more about the immaculate reception.
+Resolved: Tell me more about the immaculate reception of Pittsburgh Steelers.
+Result(s): CAR_dab330ad7b1acf7ebd56d01c87b391d4ce2466d1
+Notes:
+Source:
+Query Turn Dependence: 1
+
+Turn:7-7
+Utterance: What happened to the stadium?
+Resolved: What happened to Three Rivers stadium?
+Result(s):
+Notes:
+Source:
+Result Turn Dependence: 6
+
+Turn:7-8
+Utterance: Tell me more about their defense.
+Resolved: Tell me more about the Steelers' defense scheme.
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 1
+
+Number: cx-8
+Title: Environmental cost of food production
+Description: learn about environmental cost of food production and how to adjust diet to reduce that
+Source: QA-GEN: production vs environmental costs  pros of production costs   risks of them
+
+Turn:8-1
+Utterance: What is the environmental cost of food production?
+Resolved: What is the environmental cost of food production?
+Results: MARCO_3814316
+Notes:
+Source:
+
+Turn:8-2
+Utterance: Oh that much water? How much of that is for meat?
+Resolved: Oh that much water? How much water is used in meat production?
+Result(s): MARCO_4364866
+Notes:
+Source:
+Result Turn Dependence: 1
+
+Turn:8-3
+Utterance: How much less is used for vegetables?
+Resolved: How much less water is used to produce vegetables compared to meat?
+Result(s):
+Notes: CAR_f4f5784bff5505f7032a1a84ba2b2e3e5a09a08c
+Source:
+Result Turn Dependence: 2
+
+Turn:8-4
+Utterance: What are the benefits of being vegetarian?
+Resolved: What are the benefits of being vegetarian?
+Result(s):
+Notes:
+Source:
+
+Turn:8-5
+Utterance: Are there any health concerns?
+Resolved: Are there any health concerns of being vegetarian?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 4
+
+Turn:8-6
+Utterance: What are their sources of proteins?
+Resolved: What are the sources of proteins for vegetarians?
+Result(s): MARCO_7546745
+Notes:
+Source:
+Query Turn Dependence: 4
+
+Turn:8-7
+Utterance: Oh almonds? Can you show me some recipes with it?
+Resolved: Can you show me some vegetarian recipes with almonds?
+Result(s):
+Notes:
+Source:
+Result Turn Dependence: 6
+
+Turn:8-8
+Utterance: How do you make the flour?
+Resolved: How do you make almond flour?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 7
+
+
+Number: cx-9
+Title: blood carbon dioxide
+Description: learn about the high blood carbon dioxide and stay health with better diet
+Source:  QA-GEN: high blood carbon dioxide what should you do what is the symbol for it  healthy diet for high cholesterol   red meat cholesterol    why does it cause stroke   cholesterol in turkey   in chichen recommended amount per day
+
+
+Turn:9-1
+Utterance: What is high blood carbon dioxide?
+Resolved:
+Result(s): MARCO_513708
+Notes:
+Source:
+
+Turn:9-2
+Utterance: What should you do to treat it?
+Resolved: What should you do to treat hypercapnia?
+Result(s):
+Notes:
+Source:
+Result Turn Dependence: 1
+
+
+Turn:9-3
+Utterance: How about high cholesterol?
+Resolved: What are treatments for high cholesterol?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 2
+
+
+Turn:9-4
+Utterance: What should I eat to improve it?
+Resolved: What should I eat to improve high cholesterol?
+Result(s): MARCO_3678275
+Notes:
+Source:
+Query Turn Dependence: 3
+
+Turn:9-5
+Utterance: What are the differences of the two fats?
+Resolved: What are the differences of saturated fat and trans fat?
+Result(s): MARCO_4376952
+Notes:
+Source:
+Result Turn Dependence: 4
+
+Turn:9-6
+Utterance: So there are two types. Is the other fat good for you?
+Resolved: What are the benefits of unsaturated fats?
+Result(s): MARCO_6032486
+Notes:
+Source:
+Result Turn Dependence: 5
+
+Turn:9-7
+Utterance: Oh I like fish.  What other foods are good sources?
+Resolved: Oh, I like fish. What foods besides fish are good sources of unsaturated fats?
+Result(s): MARCO_625421
+Notes: What foods contain unsaturated fats
+Result Turn Dependence: 6
+
+Turn:9-8
+Utterance: What types does olive oil contain?
+Resolved: What types of unsaturated fats does olive oil contain?
+Result(s):
+Notes:
+Source:
+Result Turn Dependence: 5
+
+
+
+Number: cx-10
+Title: dental problems
+Description: deal with dental problems, exploring different options, and the insurance coverage of it.
+Source:  QA-GEN: reasons of tooth falling  causes the tooth chip away treatment  dental implants treatment  cost of implants    insurance coverage    medicare coverage of dental
+
+
+Turn:10-1
+Utterance: What causes my teeth to chip off?
+Resolved:
+Result(s): MARCO_327089
+Notes:
+Source:
+
+Turn:10-2
+Utterance: Oh what can they do to fix it?
+Resolved: What can a dentist do to fix a chipped tooth?
+Result(s): MARCO_6108225
+Notes:
+Source:
+Query Turn Dependence: 1
+
+
+Turn:10-3
+Utterance: I have a larger chip, how are the two options different?
+Resolved: What are the differences between dental crowns and veneers?
+Result(s):  MARCO_2508797
+Notes:
+Source:
+Result Turn Dependence: 2
+
+Turn:10-4
+Utterance: A crown sounds better. What about using an implant?
+Resolved: How does implant compare to crown?
+Result(s): MARCO_6825724
+Notes:
+Source:
+
+Turn:10-5
+Utterance: Which one is more expensive?
+Resolved: Which one of dental implants or crowns is more expensive?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 4
+Result Turn Dependence: 4
+
+Turn:10-6
+Utterance: What is the coverage of the crown in insurance?
+Resolved: What is the coverage of the crown in insurance?
+Result(s):
+Notes:
+Source:
+
+Turn:10-7
+Utterance: I meant medicare.
+Resolved: What is the coverage of crown in medicare?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 6
+
+Turn:10-8
+Utterance: Show me covered dentists in Seattle.
+Resolved: Show me medicare dentists in Seattle.
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 7
+
+Number: jc-1
+Title: Trump family
+Description: Seeking information about the Trump family.
+Comments:  [LGTM, --cx --JD] - quite linear with few comparisons
+
+Turn:1-1
+Utterance: What is Melania Trump's religion?
+Resolved: What is Melania Trump's religion?
+Result(s):
+Notes:
+Source:
+
+Turn:1-2
+Utterance: What did she do before she was married?
+Resolved: What did Melania Trump do before she was married?
+Result(s):
+Notes:
+Source:
+Query Turn Dependence: 1
+
+Turn:1-3
+Utterance: Does she have children?
+Resolved: Does Melania Trump have children?
+Result(s): MARCO_2227469
+Notes:
+Source:
+Query Turn Dependence: 1
+
+Turn:1-4
+Utterance: How old is he?
+Resolved: How old is Barron Trump?
+Result(s):
+Result Turn Dependence: 3
+Notes:refers to MARCO_2227469
+
+Turn:1-5
+Utterance:  They met at the Kit Kat Club?  Where is that?
+Resolved: Donald and Melania Trump met at the Kit Kat Club?  Where is the Kit Kat Club?
+Query Turn Dependence: 1
+Result Turn Dependence: 3
+Result(s):
+Notes:
+Source:
+
+Turn:1-6
+Utterance: When did she become a model?
+Resolved: When did Melania Trump become a model?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+Comments: a bit factoid-y in the responses
+
+Turn:1-7
+Utterance: Do we pay the First Lady?
+Resolved: Does the public pay the First Lady of the United States?
+Result(s):
+Notes:
+Source:
+
+Turn:1-8
+Utterance: What about Ivanka?
+Resolved: Does the public pay Ivanka Trump?
+Result(s):
+Notes: This isn’t a good Query Dependence, because it requires understanding the relationship between Melania and Ivanka.  Maybe there is a Result Turn Dependence on 4.  I am not able to check right now.
+Source:
+
+Turn:1-9
+Utterance: And Jared?
+Resolved: Does the public pay Jared Kushner?
+Note: May require domain knowledge to resolve Jared Kushner.
+Source:
+
+Turn:1-10
+Utterance: What does he do at the White House?
+Resolved: What does Jared Kushner do at the White House?
+Query Turn Dependence: 9
+Result(s):
+Notes:
+Source:
+
+
+Number: jc-2
+Title: Social Security
+Description: Learn about social security in US
+Source:
+Comments: [Need resolve the reference, --cx, also many factoid questions and no result dependence?]
+
+
+Turn:2-1
+Utterance: When did social security start in the US?
+Resolved: When did social security start in the US?
+Result(s):
+Notes:
+Source:
+Comments: This seems quite easy / factoidy
+
+Turn:2-2
+Utterance: Was it mandatory?
+Resolved: Was social security mandatory?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+
+Turn:2-3
+Utterance: Who received the first check?
+Resolved: Who received the first social security check?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+
+Turn:2-4
+Utterance: When did the government start borrowing from it?
+Resolved: When did the government start borrowing from social security?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Comments: Factoid-y - can we make this more involved?
+Source:
+
+Turn:2-5
+Utterance: How much is owed?
+Resolved: How much money is owed to social security?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Comments: Factoid-y - can we make this more involved?
+Source:
+
+
+Turn:2-6
+Utterance: When will it run out of money?
+Resolved: When will social security run out of money?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+
+Turn:2-7
+Utterance: Wow! What will happen?
+Resolved: Wow! What will happen if social security runs out of money?
+Query Turn Dependence: 6
+Result(s):  CAR_4d8e23fe50edf2b773c193b7307da35b7fa6ad09
+Notes:
+Source:
+
+Turn:2-8
+Utterance: Can it be fixed?
+Resolved: Can social security be fixed?
+Query Turn Dependence: 1
+Result(s):  MARCO_7828169
+Notes:
+Source:
+
+Turn:2-9
+Utterance: How much of an increase?
+Resolved: How much of a tax increase will keep social security solvent?
+Result(s):
+Query Turn Dependence: 1
+Result Turn Dependence: 7
+Source:
+
+Number: jc-3
+Title: Grateful Dead
+Description: A person is trying to learn about the formation and history of the Grateful Dead.
+Source:
+Comments:
+
+Turn:3-1
+Utterance: Why were the Dead such an influential live band?
+Resolved: Why were the Grateful Dead such an influential live band?
+Result(s):
+Notes:
+Source:
+
+Turn:3-2
+Utterance: Why did they allow live recordings?
+Resolved: Why did the Grateful Dead allow live recordings?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+
+Turn:3-3
+Utterance: Did they have a #1 hit?
+Resolved: Did the Grateful Dead have a #1 hit?
+Query Turn Dependence: 1
+Result(s):
+Notes:
+Source:
+
+Turn:3-4
+Utterance: Who was the leader?
+Resolved: Who was the leader of the Grateful Dead?
+Result(s): CAR_54cb622b4167a68625ba3830bacbb3e2608e99f0
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:3-5
+Utterance: How did he lose his finger?
+Resolved: How did Jerry Garcia lose his finger?
+Result(s):
+Result Turn Dependence: 4
+Notes:
+Source:
+
+Turn:3-6
+Utterance: What was his relationship to the Airplane?
+Resolved: What was Jerry Garcia’s relationship to Jefferson Airplane?
+Result Turn Dependence: 4
+Result(s):
+Notes:
+Source:
+
+Turn:3-7
+Utterance: Is Cassidy about Jack Casady?
+Resolved: Is Cassidy about Jack Casady?
+Result(s):
+Notes:
+Comments: Google spell corrects this to cassady? A very cool, but very obscure album / song reference?  The answer is no; it’s neal cassady.  jc: Garcia also worked with Jack Casady of the Jefferson Airplane.
+Source:
+
+Turn:3-8
+Utterance: Who wrote it?
+Resolved: Who wrote Cassidy?
+Result(s): CAR_7dccc5c94027adc8a3712098cca22b580a284369
+Query Turn Dependence: 7
+Notes:
+Source:
+
+Turn:3-9
+Utterance: What else did they write?
+Resolved: What else did John Barlow and Bob Weir write?
+Result(s):
+Result Turn Dependence: 8
+Notes:
+Source:
+
+Turn:3-10
+Utterance: Why did the band break up?
+Resolved: Why did the Grateful Dead break up?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Number: jc-4
+Description: Learning about Information Retrieval evaluation.
+Source:
+Comments: [Need reference to the referred response in previous turns --cx]
+
+
+Turn:4-1
+Utterance: Who are some of the well-known Information Retrieval researchers?
+Resolved: Who are some of the well-known Information Retrieval researchers?
+Result(s): CAR_6bc70b9b945c37deeb718898b37ec8400b4d720c
+Notes:
+Source:
+Comments: jd: Modified it to have a more diverse structure. [LGTM --jd]
+
+Turn:4-2
+Utterance: What did he work on?
+Resolved: What Information Retrieval research did Bruce Croft work on?
+Result(s):
+Query Turn Dependence: 1
+Result Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-3
+Utterance: Who are some important British ones?
+Resolved: Who are some important British Information Retrieval researchers?
+Result(s): CAR_8d9a125294600232c090191bbc3940ee443c376f
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-4
+Utterance: What did his studies contribute to evaluation?
+Resolved: What did Cyril Cleverdon’s studies contribute to the evaluation of Information Retrieval systems?
+Query Turn Dependence: 1
+Result Turn Dependence: 3
+Result(s): CAR_57d3ffe21cb7e7bc36695f05e6b102ce700c6864
+Notes:
+Source:
+
+Turn:4-5
+Utterance: What are some criticisms of the experiments?
+Resolved: What are some criticisms of the Cranfield project experiments?
+Result(s):
+Result Turn Dependence: 4
+Notes:
+Source:
+
+Turn:4-6
+Utterance: How did they influence modern initiatives?
+Resolved: How did the Cranfield Experiments influence modern information retrieval evaluation initiatives?
+Results: CAR_99043d06b1bfa2a76bde2726e9edf7765fd3b72b
+Query Turn Dependence: 4
+Result Turn Dependence: 4
+Notes:
+Source:
+
+Turn:4-7
+Utterance: What is TREC?
+Resolved: What is TREC for information retrieval research?
+Results:
+Query Turn Dependence: 1
+Result Turn Dependence: 6
+Notes:  This is a weak result turn dependence.  Turn 6 disambiguates among potential TRECs.
+Source:
+
+Turn:4-8
+Utterance: What are some recent tasks?
+Resolved: What are some recent TREC tasks?
+Result(s): CAR_14ad79757fc328eef8c44b779c7751565428000a
+Query Turn Dependence: 7
+Notes:
+Source:
+
+Turn:4-9
+Utterance: e-Discovery?  What's that?
+Resolved: e-Discovery?  What's that?
+Result(s):
+Notes:
+Source:
+
+Turn:4-10
+Utterance: What are the important components of a test collection?
+Resolved: What are the important components of an information retrieval test collection?
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-11
+Utterance: What about benchmarks for music?
+Resolved: What about evaluation benchmarks for music information retrieval?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:4-12
+Utterance: What are important measures for web search engines?
+Resolved: What are important evaluation measures for web search engines?
+Result(s):CAR_9216a9e7f10d9ee6aca35f5647ecc5949ba3bd0c
+Query Turn Dependence:
+Notes:
+Source:
+
+Turn:4-13
+Utterance: What about online ones?
+Resolved: What are important online evaluation metrics for web search?
+Results:
+Query Turn dependence: 12
+Notes:
+Source:
+
+
+Number: jc-5
+Title: Black Lives Matter
+Description: Learning about the Black Lives Matter campaign
+Source:
+Comments: [LGTM, --cx --jd]
+
+Turn:5-1
+Utterance: When did the Black Lives Matter campaign begin?
+Resolved: When did the Black Lives Matter campaign begin?
+Result(s): CAR_c337bd9008ecdd55a8ce2f72e8504d3fbfa713e9
+Notes:
+Source:
+
+Turn:5-2
+Utterance: Tell me more about what happened.
+Resolved: Tell me more about the shooting of Trayvon Martin.
+Result(s): CAR_2be8f82bc9f5be2c938e5167c8eb6aa4c629e2c2
+Notes:
+Result Turn Dependence: 1
+Comments: refers to CAR_c337bd9008ecdd55a8ce2f72e8504d3fbfa713e9
+
+Turn:5-3
+Utterance: Why was he acquitted?
+Resolved: Why was George Zimmerman acquitted?
+Result(s):
+Result Turn Dependence: 2
+Notes:
+Source:
+Comments: refers to CAR_2be8f82bc9f5be2c938e5167c8eb6aa4c629e2c2
+
+Turn:5-4
+Utterance: And how about what happened to Brown?
+Resolved: And how what happened to Michael Brown?
+Result(s):
+Result Turn Dependence: 1
+Notes:
+Comments: refers to CAR_c337bd9008ecdd55a8ce2f72e8504d3fbfa713e9
+
+Turn:5-5
+Utterance: Who named the movement?
+Resolved: Who named the movement "Black Lives Matter"?
+Result(s):
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:5-6
+Utterance: What was the US reaction to it?
+Resolved: What was the US reaction to the Black Lives Matter movement?
+Results: MARCO_3467165
+Query Turn Dependence: 1
+Notes:
+Source:
+
+Turn:5-7
+Utterance: Tell me more about the movement of the police supporters.
+Resolved: Tell me more about the Blue Lives Matter movement.
+Result(s): CAR_c6e03044b5ca8bcf2c4432eeb62f70a3eeb9446b
+Result Turn Dependence: 6
+Source:
+
+Turn:5-8
+Utterance: Why were they killed?
+Resolved: Why were Rafael Ramos and Wenjian Liu killed?
+Result(s):
+Result Turn Dependence: 7
+Notes:
+Comments: refers to CAR_c6e03044b5ca8bcf2c4432eeb62f70a3eeb9446b
+
+Turn:5-9
+Utterance: What else motivates the Black Lives Matter movement?
+Resolved: What else motivates the Black Lives Matter movement?
+Result(s):
+Notes:
+Source: wikipedia page
