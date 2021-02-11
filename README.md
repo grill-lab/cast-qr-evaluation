@@ -122,3 +122,4 @@ We use the https://github.com/usnistgov/trec_eval to assess the retrieval/rerank
 
 * Add notebooks used for experiments
 * Add run files generated for initial retrieval
+* Mkae rewrite files uniform
