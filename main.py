@@ -7,6 +7,11 @@ from src.text_transforms import CAsT_Index_store
 
 module = importlib.import_module('src.models')
 
+#############################
+# Example usage
+# $ python3 main.py --rewriter OracleReWriter --hits 100
+#############################
+
 parser = argparse.ArgumentParser(description='Fine Tune a query re-writing model for CAsT')
 parser.add_argument('-d','--dataset', action='append', help='datasource to use for fine-tuning')
 parser.add_argument('--rewriter', type=str, default="BART")
@@ -52,17 +57,17 @@ re_writer = re_writer_class()
 eval_experiment = TREC_Eval_Command_Experiment(save_run_path=args.save_run_path, save_eval_path=args.save_eval_path, key_fields={'source_field':'duo_rerank_results'})
 
 bm25_transform = BM25_Search_Transform(hits=args.hits, 
-                                       key_fields={'query_field':'re-write', 'target_field':'duo_rerank_results'})
+                                       key_fields={'query_field':'re-write', 'target_field':'search_results'})
 
-# monoBERT_transform = MonoBERT_ReRanker_Transform('big_files/monoBERT', 
-#                                                  get_doc_fn, 
-#                                                  device=args.device,
-#                                                  key_fields={'query_field':'re-write', 'source_field':'search_results', 'target_field':'mono_rerank_results'})
+monoBERT_transform = MonoBERT_ReRanker_Transform('big_files/monoBERT', 
+                                                 get_doc_fn, 
+                                                 device=args.device,
+                                                 key_fields={'query_field':'re-write', 'source_field':'search_results', 'target_field':'mono_rerank_results'})
 
-# duoBERT_transform = DuoBERT_ReRanker_Transform('big_files/duoBERT', 
-#                                                get_doc_fn, 
-#                                                device=args.device,
-#                                                key_fields={'query_field':'re-write', 'source_field':'mono_rerank_results', 'target_field':'duo_rerank_results'})
+duoBERT_transform = DuoBERT_ReRanker_Transform('big_files/duoBERT', 
+                                               get_doc_fn, 
+                                               device=args.device,
+                                               key_fields={'query_field':'re-write', 'source_field':'mono_rerank_results', 'target_field':'duo_rerank_results'})
 
 test_samples = [{
     "q_id":'81_2', 
@@ -87,8 +92,8 @@ test_samples = [{
 test_samples = re_writer.inference(test_samples) # each sample should have a "re-write" field
 
 test_samples = bm25_transform(test_samples)
-# test_samples = monoBERT_transform(test_samples)
-# test_samples = duoBERT_transform(test_samples)
+test_samples = monoBERT_transform(test_samples)
+test_samples = duoBERT_transform(test_samples)
 
 test_samples = eval_experiment(test_samples)
 
