@@ -2,7 +2,7 @@ from tqdm import tqdm
 import os
 
 class RUN_File_Transform_Exporter():
-    def __init__(self, run_file_path, model_name='model_by_carlos', key_fields={'source_field':'search_results'}):
+    def __init__(self, run_file_path, model_name='model_by_carlos', key_fields={'source_field':'search_results'}, **kwargs):
         '''
         A Transform Exporter that creates a RUN file from samples returnedd by a search engine.
         '''
