@@ -30,10 +30,11 @@ parser.add_argument('--save_eval_path', type=str, default='evals/latest.eval')
 parser.add_argument('--num_eval_samples', type=int, default=-1)
 
 parser.add_argument('--gpu_id', type=str, default='0')
+parser.add_argument('--lr', type=float, default=0.0001)
 parser.add_argument('--batch_sz', type=int, default=4)
 parser.add_argument('--epochs', type=int, default=10)
 parser.add_argument('--hits', type=int, default=1000)
-parser.add_argument('--inference_chunk_size', type=int, default=64)
+parser.add_argument('--inference_chunk_size', type=int, default=32)
 parser.add_argument('--save_dir', type=str, default='checkpoints')
 
 args = parser.parse_args()
@@ -44,7 +45,8 @@ get_doc_fn = CAsT_Index_store().get_doc
 fine_tuning_samples = get_data(args.dataset, 'train')
 
 re_writer_class = getattr(module, args.rewriter)
-re_writer = re_writer_class()
+print(f"Loading: {args.rewriter}")
+re_writer = re_writer_class(args)
 
 
 
@@ -53,7 +55,7 @@ re_writer = re_writer_class()
 
 # train here or skip if indicated
 if not args.skip_train:
-    dataloader = DataLoader(fine_tuning_samples, batch_size=args.batch_sz, num_workers=0, collate_fn = re_writer.collate)
+    dataloader = DataLoader(fine_tuning_samples, batch_size=args.batch_sz, num_workers=0, shuffle=True, collate_fn = re_writer.collate)
     pl_trainer = Trainer(gpus=args.gpu_id, gradient_clip_val=0.5, amp_level='O1', max_epochs=args.epochs)
     re_writer.train()
     pl_trainer.fit(re_writer, dataloader)
@@ -105,6 +107,7 @@ for sample in test_samples:
     print(f"Q_id -> {sample['q_id']}")
     print('; '.join([f"{metric}: {sample[metric]}" for metric in eval_experiment.relevant_metrics]))
     print(f"{raw_query} -> {sample['re-write']}")
+    print(f"{' '*len(raw_query)}   [{sample['all_manual_queries'][-1]}]")
     print(f"TOP DOCS")
     print()
     for doc_id, score in sample[results_field][:3]:
@@ -115,7 +118,10 @@ for sample in test_samples:
     print("############################")
     
 print("############ OVERALL ############")
-print(eval_experiment.overall(test_samples))
+eval_dict = eval_experiment.overall(test_samples)
+scores = [f"{eval_dict[m]:0.3f}" for m in eval_experiment.relevant_metrics]
+print('\t'.join(eval_experiment.relevant_metrics))
+print('\t\t'.join(scores))
 print("#################################")
 
 print("Done!")

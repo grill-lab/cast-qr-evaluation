@@ -4,11 +4,12 @@ import torch
 from torch.nn import functional as F
 from torch import nn
 from tqdm import tqdm
+import re
 
 from src.utils import chunks
 
 class PassThroughReWriter():
-    def __init__(self):
+    def __init__(self, args):
         "simply use the raw query."
         pass
     def inference(self, samples):
@@ -17,7 +18,7 @@ class PassThroughReWriter():
         return samples
     
 class OracleReWriter():
-    def __init__(self):
+    def __init__(self, args):
         "simply use the raw query."
         pass
     def inference(self, samples):
@@ -27,7 +28,7 @@ class OracleReWriter():
         return samples
     
 class BART_ReWriter(LightningModule):
-    def __init__(self):
+    def __init__(self, args):
         """
         R1 = Raw 1
         
@@ -35,6 +36,7 @@ class BART_ReWriter(LightningModule):
         R1 + R2 + R3 -> M3
         """
         super().__init__()
+        self.lr = args.lr
         self.BART = BartForConditionalGeneration.from_pretrained('facebook/bart-large')
         self.tokenizer = BartTokenizer.from_pretrained('facebook/bart-large')
         
@@ -85,7 +87,6 @@ class BART_ReWriter(LightningModule):
         return {"loss":loss, 'logits':logits}
     
     def configure_optimizers(self):
-        self.lr = 0.0001
         optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.95)
         return [optimizer], [scheduler]
@@ -94,17 +95,61 @@ class BART_ReWriter(LightningModule):
         """
         input_samples: [{'all_raw_queries':['sadfad','adfad'], ...}]
         """
-        new_samples = []
-        for chunk_samples in tqdm(chunks(input_samples, chunk_size), desc="Re-writing", total=int(len(input_samples)/chunk_size)):
-            input_text = [' '.join(sample['all_raw_queries']) for sample in chunk_samples]
-            input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
-            input_ids = input_tok_obj['input_ids'].to(self.device)
-            input_att_mask = input_tok_obj['attention_mask'].to(self.device)
+        self.eval()
+        with torch.no_grad():
+            new_samples = []
+            for chunk_samples in tqdm(list(chunks(input_samples, chunk_size)), desc="Re-writing"):
+                input_text = [' '.join(sample['all_raw_queries']) for sample in chunk_samples]
+                input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+                input_ids = input_tok_obj['input_ids'].to(self.device)
+                input_att_mask = input_tok_obj['attention_mask'].to(self.device)
 
-            output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
-            output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+                output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+                output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
 
-            for sample, out_text in zip(chunk_samples, output_text):
-                sample['re-write'] = out_text
-            new_samples += chunk_samples
-        return new_samples
+                for sample, out_text in zip(chunk_samples, output_text):
+                    sample['re-write'] = out_text
+                new_samples += chunk_samples
+            return new_samples
+        
+class BART_All_Queries_ReWriter(BART_ReWriter):
+    def collate(self, input_samples):
+        """
+        input_samples: [dict]: these are samples obtained through the __getitem__ method
+        """
+        collated_samples = {}
+        input_text = [' '.join(sample['all_raw_queries']) for sample in input_samples]
+        target_text = [' '.join(sample['all_manual_queries']) for sample in input_samples]
+        
+        input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+        collated_samples['input_ids'] = input_tok_obj['input_ids']
+        collated_samples['input_att_mask'] = input_tok_obj['attention_mask']
+        
+        input_tok_obj = self.tokenizer(target_text, return_tensors='pt', padding=True)
+        collated_samples['decoder_input_ids'] = input_tok_obj['input_ids'][:,:-1]
+        collated_samples['decoder_target_ids'] = input_tok_obj['input_ids'][:,1:]
+        collated_samples['decoder_att_mask'] = input_tok_obj['attention_mask'][:,1:]
+        
+        return collated_samples
+    
+    def inference(self, input_samples, max_len=20, chunk_size=64):
+        """
+        input_samples: [{'all_raw_queries':['sadfad','adfad'], ...}]
+        """
+        self.eval()
+        with torch.no_grad():
+            new_samples = []
+            for chunk_samples in tqdm(list(chunks(input_samples, chunk_size)), desc="Re-writing"):
+                input_text = [' '.join(sample['all_raw_queries']) for sample in chunk_samples]
+                input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+                input_ids = input_tok_obj['input_ids'].to(self.device)
+                input_att_mask = input_tok_obj['attention_mask'].to(self.device)
+
+                output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+                output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+
+                for sample, out_text in zip(chunk_samples, output_text):
+                    all_rewritten_queries = re.findall('[^.?,]+.?', out_text)
+                    sample['re-write'] = all_rewritten_queries[-1]
+                new_samples += chunk_samples
+            return new_samples

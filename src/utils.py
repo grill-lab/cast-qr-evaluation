@@ -12,7 +12,7 @@ def chunks(lst, n):
         yield lst[i:i + n]
 
 
-def cast_helper(file_path, year):
+def cast_helper(file_path, year, q_rels):
     data = []
 
     with open(file_path) as json_file:
@@ -23,8 +23,8 @@ def cast_helper(file_path, year):
 
             for turn in range(len(turns)):
                 row = []
-                row.append(str(q_id) + '_' +
-                           str(turns[turn]['number']))
+                true_q_id = str(q_id) + '_' + str(turns[turn]['number'])
+                row.append(true_q_id)
                 row.append(turns[turn]['raw_utterance'])
 
                 if year == 2:
@@ -41,6 +41,7 @@ def cast_helper(file_path, year):
 
                 row.append(conversation_history)
                 row.append(resolved_queries)
+                row.append(q_rels[true_q_id] if true_q_id in q_rels else [])
                 data.append(row)
 
     return data
@@ -163,6 +164,7 @@ def parse_json_str(json_str, result_len):
         sample_obj['q_id'] = full_data['q_id'][str(
             sample)]
         sample_obj['canonical_doc'] = full_data['canonical_doc'][str(sample)]
+        sample_obj['q_rels'] = full_data['q_rels'][str(sample)]
 
         result_arr.append(sample_obj)
 
@@ -173,6 +175,20 @@ def get_data(source, type):
     canard = pd.DataFrame()
     cast_y1 = pd.DataFrame()
     cast_y2 = pd.DataFrame()
+    
+    NIST_qrels=["/nfs/phd_by_carlos/notebooks/datasets/TREC_CAsT/2019qrels.txt",
+                '/nfs/phd_by_carlos/notebooks/datasets/TREC_CAsT/2020qrels.txt']
+    q_rels = {}
+    for q_rel_file in NIST_qrels:
+        with open(q_rel_file) as NIST_fp:
+            for line in NIST_fp.readlines():
+                q_id, _, d_id, score = line.split(" ")
+                if int(score) < 3:
+                    # ignore some of the worst ranked
+                    continue
+                if q_id not in q_rels:
+                    q_rels[q_id] = []
+                q_rels[q_id].append(d_id)
 
     if type == 'train':
         for data in source:
@@ -187,17 +203,17 @@ def get_data(source, type):
                 canard = carnard_helper(canard)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
-                    'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)
+                    'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
-                                       'q_id', 'query',  'conversation_history', 'all_manual'])
+                                       'q_id', 'query',  'conversation_history', 'all_manual', 'q_rels'])
                 cast_y1['canonical_doc'] = [None for i in range(len(cast_y1))]
                 cast_y1 = get_resolved_queries(
                     'big_files/CAsT_2019_evaluation_topics_annotated_resolved_v1.0.tsv', cast_y1)
             if data == 'cast_y2':
                 cast_y2_data = cast_helper(
-                    'big_files/CAsT_2020_manual_evaluation_topics_v1.0.json', 2)
+                    'big_files/CAsT_2020_manual_evaluation_topics_v1.0.json', 2, q_rels)
                 cast_y2 = pd.DataFrame(cast_y2_data, columns=[
-                                       'q_id', 'query', 'canonical_doc', 'conversation_history', 'all_manual'])
+                                       'q_id', 'query', 'canonical_doc', 'conversation_history', 'all_manual', 'q_rels'])
     if type == 'test':
         for data in source:
             if data == 'canard':
@@ -211,17 +227,17 @@ def get_data(source, type):
                 canard = carnard_helper(canard)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
-                    'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)
+                    'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
-                                       'q_id', 'query',  'conversation_history', 'all_manual'])
+                                       'q_id', 'query',  'conversation_history', 'all_manual', 'q_rels'])
                 cast_y1['canonical_doc'] = [None for i in range(len(cast_y1))]
                 cast_y1 = get_resolved_queries(
                     'big_files/CAsT_2019_evaluation_topics_annotated_resolved_v1.0.tsv', cast_y1)
             if data == 'cast_y2':
                 cast_y2_data = cast_helper(
-                    'big_files/CAsT_2020_manual_evaluation_topics_v1.0.json', 2)
+                    'big_files/CAsT_2020_manual_evaluation_topics_v1.0.json', 2, q_rels)
                 cast_y2 = pd.DataFrame(cast_y2_data, columns=[
-                                       'q_id', 'query', 'canonical_doc', 'conversation_history', 'all_manual'])
+                                       'q_id', 'query', 'canonical_doc', 'conversation_history', 'all_manual', 'q_rels'])
 
     result = canard.append(cast_y1).append(cast_y2)
     result_len = len(result)
