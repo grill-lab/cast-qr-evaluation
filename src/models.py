@@ -101,12 +101,17 @@ class BART_ReWriter(LightningModule):
             input_ids = input_tok_obj['input_ids'].to(self.device)
             input_att_mask = input_tok_obj['attention_mask'].to(self.device)
 
+<<<<<<< HEAD
             output_ids = self.transformer.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+=======
+            output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+>>>>>>> 74693c895c51d7688c6e9ae87fe268d89ac1d751
             output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
 
             for sample, out_text in zip(chunk_samples, output_text):
                 sample['re-write'] = out_text
             new_samples += chunk_samples
+<<<<<<< HEAD
         return new_samples
   
 class T5_ReWriter(BART_ReWriter):
@@ -114,3 +119,6 @@ class T5_ReWriter(BART_ReWriter):
     super().__init__()
     self.transformer = T5ForConditionalGeneration.from_pretrained('t5-large')
     self.tokenizer = T5Tokenizer.from_pretrained('t5-large')
+=======
+        return new_samples
+>>>>>>> 74693c895c51d7688c6e9ae87fe268d89ac1d751
