@@ -82,35 +82,36 @@ def insert_first_turns(df):
 
 def get_resolved_queries(resolved_path, source):
     resolved = pd.read_csv(resolved_path, sep='\t', header=None, names=[
-                           'q_id', 'query'])
+                           'conversation_id', 'query'])
 
     query_list = resolved['query'].tolist()
 
     overall_history = []
 
-    current_conversation = resolved.iloc[0]['q_id'].split('_')[0]
+    current_conversation = resolved.iloc[0]['conversation_id'].split('_')[0]
     start_idx = 0
     current_query = 0
 
     while current_query < len(resolved):
 
         history = []
-        if current_conversation == resolved.iloc[current_query]['q_id'].split('_')[0]:
+        if current_conversation == resolved.iloc[current_query]['conversation_id'].split('_')[0]:
             history = query_list[start_idx: current_query+1]
             overall_history.append(history)
             current_query += 1
             history = []
 
         else:
-            current_conversation = resolved.iloc[current_query]['q_id'].split('_')[
+            current_conversation = resolved.iloc[current_query]['conversation_id'].split('_')[
                 0]
             start_idx = current_query
-
+            history = [query_list[start_idx]]
             overall_history.append(history)
             current_query += 1
 
     source['all_manual'] = overall_history
     return source
+
 
 
 def carnard_helper(dataframe):
@@ -139,11 +140,7 @@ def carnard_helper(dataframe):
             current_query += 1
 
     renamed_dataframe['all_manual'] = all_manual
-    return renamed_dataframe
-
-def append_turns(arr, turn):
-  arr.append(turn)
-  return arr
+    return renamed_dataframe[['conversation_history', 'query', 'all_manual']]
 
 
 def parse_json_str(json_str, result_len):
@@ -188,8 +185,6 @@ def get_data(source, type):
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
                 canard = carnard_helper(canard)
-                canard['conversation_history'] = canard.apply(lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
-                canard['all_manual'] = canard.apply(lambda row: append_turns(row['all_manual'], row['Rewrite']), axis=1)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)
@@ -214,8 +209,6 @@ def get_data(source, type):
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
                 canard = carnard_helper(canard)
-                canard['conversation_history'] = canard.apply(lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
-                canard['all_manual'] = canard.apply(lambda row: append_turns(row['all_manual'], row['Rewrite']), axis=1)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)

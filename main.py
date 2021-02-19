@@ -25,9 +25,9 @@ parser.add_argument('--skip_neural_rerank', default=False, action='store_true')
 parser.add_argument('--save_run_path', type=str, default='runs/latest.run')
 parser.add_argument('--save_eval_path', type=str, default='evals/latest.eval')
 
-parser.add_argument('--device', type=str, default="cuda")
+parser.add_argument('--gpu_id', type=str, default=0)
 parser.add_argument('--batch_sz', type=int, default=32)
-parser.add_argument('--epochs', type=int, default=400)
+parser.add_argument('--epochs', type=int, default=10)
 parser.add_argument('--hits', type=int, default=1000)
 parser.add_argument('--save_dir', type=str, default='checkpoints')
 
@@ -36,7 +36,7 @@ args = parser.parse_args()
 # useful functions
 get_doc_fn = CAsT_Index_store().get_doc
 
-fine_tuning_samples = get_data(['cast_y1', 'cast_y2'], 'train')
+fine_tuning_samples = get_data(args.dataset, 'train')
 
 re_writer_class = getattr(module, args.rewriter)
 re_writer = re_writer_class()
@@ -47,7 +47,10 @@ re_writer = re_writer_class()
 
 
 # train here or skip if indicated
-
+dataloader = DataLoader(fine_tuning_samples, batch_size=2, num_workers=0, collate_fn = re_writer.collate)
+pl_trainer = Trainer(gpus=1, gradient_clip_val=0.5, amp_level='O1', max_epochs=200)
+re_writer.train()
+pl_trainer.fit(re_writer, dataloader)
 # end training
 
 
