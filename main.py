@@ -4,6 +4,7 @@ from src.evaluate import TREC_Eval_Command_Experiment
 from src.BERT_transforms import MonoBERT_ReRanker_Transform, DuoBERT_ReRanker_Transform
 from src.BM25_transforms import BM25_Search_Transform
 from src.text_transforms import CAsT_Index_store
+from src.utils import get_data
 
 module = importlib.import_module('src.models')
 
@@ -34,7 +35,7 @@ args = parser.parse_args()
 # useful functions
 get_doc_fn = CAsT_Index_store().get_doc
 
-# fine_tuning_samples = get_data(['CAsT', 'CANARD'], 'train')
+fine_tuning_samples = get_data(['cast_y1'], 'train')
 
 re_writer_class = getattr(module, args.rewriter)
 re_writer = re_writer_class()
@@ -62,12 +63,12 @@ bm25_transform = BM25_Search_Transform(hits=args.hits,
 monoBERT_transform = MonoBERT_ReRanker_Transform('big_files/monoBERT', 
                                                  get_doc_fn, 
                                                  device=args.device,
-                                                 key_fields={'query_field':'re-write', 'source_field':'search_results', 'target_field':'mono_rerank_results'})
+                                                 key_fields={'query_field':'raw query', 'source_field':'search_results', 'target_field':'mono_rerank_results'})
 
 duoBERT_transform = DuoBERT_ReRanker_Transform('big_files/duoBERT', 
                                                get_doc_fn, 
                                                device=args.device,
-                                               key_fields={'query_field':'re-write', 'source_field':'mono_rerank_results', 'target_field':'duo_rerank_results'})
+                                               key_fields={'query_field':'raw query', 'source_field':'mono_rerank_results', 'target_field':'duo_rerank_results'})
 
 test_samples = [{
     "q_id":'81_2', 
