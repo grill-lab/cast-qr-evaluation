@@ -27,12 +27,12 @@ def cast_helper(file_path, year):
                            str(turns[turn]['number']))
                 row.append(turns[turn]['raw_utterance'])
 
-                if turn > 0 and year == 2:
+                if year == 2:
                     row.append(turns[turn]['manual_canonical_result_id'])
 
                 conversation_history = []
                 resolved_queries = []
-                for history in range(0, turn):
+                for history in range(0, turn+1):
                     conversation_history.append(
                         turns[history]['raw_utterance'])
                     if year == 2:
@@ -96,7 +96,7 @@ def get_resolved_queries(resolved_path, source):
 
         history = []
         if current_conversation == resolved.iloc[current_query]['conversation_id'].split('_')[0]:
-            history = query_list[start_idx: current_query]
+            history = query_list[start_idx: current_query+1]
             overall_history.append(history)
             current_query += 1
             history = []
@@ -150,7 +150,7 @@ def parse_json_str(json_str, result_len):
         sample_obj = {
             'all_raw_queries': None,
             'all_manual_queries': None,
-            'query': None,
+            # 'query': None,
             'conversation_id': None,
             'canonical_doc': None
         }
@@ -158,7 +158,7 @@ def parse_json_str(json_str, result_len):
         sample_obj['all_raw_queries'] = full_data['conversation_history'][str(
             sample)]
         sample_obj['all_manual_queries'] = full_data['all_manual'][str(sample)]
-        sample_obj['query'] = full_data['query'][str(sample)]
+        # sample_obj['query'] = full_data['query'][str(sample)]
         sample_obj['conversation_id'] = full_data['conversation_id'][str(
             sample)]
         sample_obj['canonical_doc'] = full_data['canonical_doc'][str(sample)]
@@ -181,12 +181,15 @@ def get_data(source, type):
                 canard['History'] = canard.apply(
                     lambda row: trim_context(row['History']), axis=1)
                 canard = insert_first_turns(canard)
+                canard['canonical_doc'] = [None for i in range(len(canard))]
+                canard['conversation_id'] = [None for i in range(len(canard))]
                 canard = carnard_helper(canard)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
                                        'conversation_id', 'query',  'conversation_history', 'all_manual'])
+                cast_y1['canonical_doc'] = [None for i in range(len(cast_y1))]
                 cast_y1 = get_resolved_queries(
                     'big_files/CAsT_2019_evaluation_topics_annotated_resolved_v1.0.tsv', cast_y1)
             if data == 'cast_y2':
@@ -202,12 +205,15 @@ def get_data(source, type):
                 canard['History'] = canard.apply(
                     lambda row: trim_context(row['History']), axis=1)
                 canard = insert_first_turns(canard)
+                canard['canonical_doc'] = [None for i in range(len(canard))]
+                canard['conversation_id'] = [None for i in range(len(canard))]
                 canard = carnard_helper(canard)
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
                                        'conversation_id', 'query',  'conversation_history', 'all_manual'])
+                cast_y1['canonical_doc'] = [None for i in range(len(cast_y1))]
                 cast_y1 = get_resolved_queries(
                     'big_files/CAsT_2019_evaluation_topics_annotated_resolved_v1.0.tsv', cast_y1)
             if data == 'cast_y2':
