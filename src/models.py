@@ -1,10 +1,11 @@
 from transformers import BartModel, BertTokenizer, BartForConditionalGeneration, BartTokenizer
 from pytorch_lightning.core.lightning import LightningModule
-
 import torch
 from torch.nn import functional as F
 from torch import nn
+from tqdm import tqdm
 
+from src.utils import chunks
 
 class PassThroughReWriter():
     def __init__(self):
@@ -89,18 +90,21 @@ class BART_ReWriter(LightningModule):
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.95)
         return [optimizer], [scheduler]
     
-    def inference(self, input_samples, max_len=20):
+    def inference(self, input_samples, max_len=20, chunk_size=64):
         """
         input_samples: [{'all_raw_queries':['sadfad','adfad'], ...}]
         """
-        input_text = [' '.join(sample['all_raw_queries']) for sample in input_samples]
-        input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
-        input_ids = input_tok_obj['input_ids'].to(self.device)
-        input_att_mask = input_tok_obj['attention_mask'].to(self.device)
-        
-        output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
-        output_text = self.tokenizer.batch_decode(output_ids)
-        
-        for sample, out_text in zip(input_samples, output_text):
-            sample['re-write'] = out_text
-        return input_samples
+        new_samples = []
+        for chunk_samples in tqdm(chunks(input_samples, chunk_size), desc="Re-writing", total=int(len(input_samples)/chunk_size)):
+            input_text = [' '.join(sample['all_raw_queries']) for sample in chunk_samples]
+            input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+            input_ids = input_tok_obj['input_ids'].to(self.device)
+            input_att_mask = input_tok_obj['attention_mask'].to(self.device)
+
+            output_ids = self.BART.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+            output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+
+            for sample, out_text in zip(chunk_samples, output_text):
+                sample['re-write'] = out_text
+            new_samples += chunk_samples
+        return new_samples

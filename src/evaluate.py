@@ -63,6 +63,7 @@ class TREC_Eval_Command_Experiment():
                 if q_id not in eval_results:
                     eval_results[q_id] = {}
                 eval_results[q_id][metric] = float(score)
+        self.eval_results = eval_results
                 
         for sample in samples:
             if sample['q_id'] not in eval_results:
@@ -70,3 +71,7 @@ class TREC_Eval_Command_Experiment():
                 continue
             sample.update(eval_results[sample['q_id']])
         return samples
+    
+    def overall(self, samples):
+        self(samples)
+        return {m:s for m, s in self.eval_results['all'].items() if m in self.relevant_metrics}
