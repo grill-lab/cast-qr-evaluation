@@ -117,6 +117,12 @@ We use the https://github.com/usnistgov/trec_eval to assess the retrieval/rerank
 | T5 (Last Turn) w/ QuReTec |0.5664|0.1767|0.2502|0.3114|
 | T5 (Last Turn)<sub>1</sub> w/ QuReTec |0.5859|**0.1810**|0.2661|0.3296|
 
+## Reproducing results
+Use the following commant to test your installation
+```
+$ python3 main.py --rewriter OracleReWriter --hits 100
+```
+
 
 ## Todo
 
