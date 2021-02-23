@@ -10,7 +10,16 @@ class CAsT_Index_store():
         raw_text = self.searcher.doc(doc_id).raw()
         paragraph = raw_text[raw_text.find('<BODY>\n')+7:raw_text.find('\n</BODY>')]
         return paragraph
-
+    
+class Base_Info_Transform():
+    def __init(self):
+        pass
+    def __call__(self, samples):
+        for sample_obj in samples:
+            sample_obj["raw query"] = sample_obj['all_raw_queries'][-1]
+            sample_obj["manual query"] = sample_obj['all_manual_queries'][-1]
+        return samples
+            
 class Document_Resolver_Transform():
     def __init__(self, get_doc_fn, fields=[('d_id','doc')], **kwargs):
         '''

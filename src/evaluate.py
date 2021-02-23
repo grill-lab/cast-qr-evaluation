@@ -1,5 +1,9 @@
 from tqdm import tqdm
 import os
+import copy
+import json
+
+import wandb
 
 class RUN_File_Transform_Exporter():
     def __init__(self, run_file_path, model_name='model_by_carlos', key_fields={'source_field':'search_results'}, **kwargs):
@@ -9,11 +13,26 @@ class RUN_File_Transform_Exporter():
         self.run_file_path = run_file_path
         self.model_name = model_name
         self.key_fields = key_fields
+        self.model_outputs_path = f'{self.run_file_path}.json'
         
     def __call__(self, samples):
         '''
         samples: [dict]: [{'q_id':"xxx", 'search_results':[("MARCO_xxx", 0.63)...]},...]
         '''
+        
+        with open(self.model_outputs_path, 'w') as out_file:
+            out_lst = []
+            for s in samples:
+                new_obj = copy.deepcopy(s)
+                if 'search_results' in new_obj:
+                    del new_obj['search_results']
+                if 'mono_rerank_results' in new_obj:
+                    del new_obj['mono_rerank_results']
+                if 'duo_rerank_results' in new_obj:
+                    del new_obj['duo_rerank_results']
+                out_lst.append(new_obj)
+            json.dump(out_lst, out_file)
+        
         total_samples = 0
         os.makedirs(os.path.dirname(self.run_file_path), exist_ok=True)
         with open(self.run_file_path, 'w') as run_file:

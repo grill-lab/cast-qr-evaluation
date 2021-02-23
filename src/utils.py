@@ -4,6 +4,8 @@ import urllib
 from tqdm import tqdm
 import os
 import requests
+import wandb
+import matplotlib.pyplot as plt
 
 
 def chunks(lst, n):
@@ -272,3 +274,105 @@ def download_from_url(url, dst):
                 pbar.update(1024)
     pbar.close()
     return file_size
+
+class Info_Plotter:
+    def __init__(self):
+        pass
+        
+    def tabulate_rewrites(self, samples):
+        table = wandb.Table(columns=["Raw query", "Re-write", "Manual", "Model output", "ndcg_cut_3", 'recall_1000'])
+        for sample_obj in samples:
+            model_output = sample_obj['model output'] if "model output" in sample_obj else ""
+            ndcg_cut_3 = sample_obj['ndcg_cut_3'] if "ndcg_cut_3" in sample_obj else ""
+            recall_1000 = sample_obj['recall_1000'] if "recall_1000" in sample_obj else ""
+            table.add_data(sample_obj['raw query'], sample_obj['re-write'], sample_obj['manual query'], model_output, ndcg_cut_3, recall_1000)
+        return {'rewrites table': table}
+    
+    def get_turn_counts(self, samples):
+        counts = {}
+        for turn in samples:
+            id = turn['q_id'].split('_')[1]
+            if id in counts:
+                counts[id] += 1
+            else:
+                counts[id] = 1
+        return counts
+    
+    def per_turn_plots(self, samples):
+        metrics = ['recall_500', 'recall_1000', 'ndcg_cut_3', 'ndcg_cut_5', 'ndcg_cut_1000', 'map_cut_1000']
+        charts = {}
+        turn_counts = self.get_turn_counts(samples)
+        for metric in metrics:
+            metric_dict = {}
+            for turn in samples:
+                id = turn['q_id'].split('_')[1]
+                if id in metric_dict:
+                    try:
+                        metric_dict[id] += turn[metric] #not all turns might have a given metric
+                    except:
+                        pass
+                else:
+                    metric_dict[id] = turn[metric]
+
+            turns = [*metric_dict]
+            values = [metric_dict[turn]/turn_counts[turn] for turn in turns]
+            
+            fig, ax = plt.subplots()
+            ax.set_ylabel(metric)
+            ax.bar(turns, values)
+            
+            charts[f"per_turn_{metric}"] = wandb.Image(fig)
+            
+        return charts
+
+class Create_Charts():
+    def __init__(self, path_to_results):
+        self.path_to_results = path_to_results
+        self.data = self.open_file()
+        self.metrics = ['recall_500', 'recall_1000', 'ndcg_cut_3', 'ndcg_cut_5', 'ndcg_cut_1000', 'map_cut_1000']
+        self.charts = {} #just necessary for debugging
+        self.turn_counts = self.get_turn_counts()
+    
+    def open_file(self):
+        with open(self.path_to_results) as json_file:
+            data = json.load(json_file)
+            return data
+    
+    def get_turn_counts(self):
+        counts = {}
+        for turn in self.data:
+            id = turn['q_id'].split('_')[1]
+            if id in counts:
+                counts[id] += 1
+            else:
+                counts[id] = 1
+        
+        return counts
+    
+    def build_chart(self):
+        for metric in self.metrics:
+            metric_dict = {}
+            for turn in self.data:
+                id = turn['q_id'].split('_')[1]
+                if id in metric_dict:
+                    try:
+                        metric_dict[id] += turn[metric] #not all turns might have a given metric
+                    except:
+                        pass
+                else:
+                    metric_dict[id] = turn[metric]
+
+            turns = [*metric_dict]
+            values = [metric_dict[turn]/self.turn_counts[turn] for turn in turns]
+            
+            fig, ax = plt.subplots()
+            ax.set_ylabel(metric)
+            ax.bar(turns, values)
+            
+            #self.charts[metric] = fig
+            
+            wandb.log({metric, fig})
+            
+        #return self.charts
+        
+
