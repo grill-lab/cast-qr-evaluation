@@ -203,6 +203,7 @@ def get_data(source, type):
                 canard = carnard_helper(canard)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
+                canard['q_rels'] = [None for i in range(len(canard))]
                 
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
@@ -228,6 +229,7 @@ def get_data(source, type):
                 canard = carnard_helper(canard)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
+                canard['q_rels'] = [None for i in range(len(canard))]
                 
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
