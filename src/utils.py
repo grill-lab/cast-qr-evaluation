@@ -67,8 +67,8 @@ def insert_first_turns(df):
 
     while idx < len(df):
         if df.iloc[idx]['Question_no'] == 1:
-            row_value = [[], '', df.iloc[idx]['History'],
-                         0, df.iloc[idx]['History'][0]]
+            row_value = [[], '', df.iloc[idx]['History']
+                [0], 0, df.iloc[idx]['History'][0]]
             df1 = df[0:idx]
             df2 = df[idx:]
 
@@ -116,7 +116,6 @@ def get_resolved_queries(resolved_path, source):
     return source
 
 
-
 def carnard_helper(dataframe):
     renamed_dataframe = dataframe.rename(
         columns={"History": "conversation_history", "Question": "query", })
@@ -143,7 +142,7 @@ def carnard_helper(dataframe):
             current_query += 1
 
     renamed_dataframe['all_manual'] = all_manual
-    return renamed_dataframe[['conversation_history', 'query', 'all_manual']]
+    return renamed_dataframe
 
 
 def parse_json_str(json_str, result_len):
@@ -163,10 +162,8 @@ def parse_json_str(json_str, result_len):
             sample)]
         sample_obj['all_manual_queries'] = full_data['all_manual'][str(sample)]
         # sample_obj['query'] = full_data['query'][str(sample)]
-        sample_obj['q_id'] = full_data['q_id'][str(
-            sample)]
+        sample_obj['q_id'] = full_data['q_id'][str(sample)]
         sample_obj['canonical_doc'] = full_data['canonical_doc'][str(sample)]
-        sample_obj['q_rels'] = full_data['q_rels'][str(sample)]
 
         result_arr.append(sample_obj)
 
@@ -177,8 +174,8 @@ def get_data(source, type):
     canard = pd.DataFrame()
     cast_y1 = pd.DataFrame()
     cast_y2 = pd.DataFrame()
-    
-    NIST_qrels=["/nfs/phd_by_carlos/notebooks/datasets/TREC_CAsT/2019qrels.txt",
+
+    NIST_qrels = ["/nfs/phd_by_carlos/notebooks/datasets/TREC_CAsT/2019qrels.txt",
                 '/nfs/phd_by_carlos/notebooks/datasets/TREC_CAsT/2020qrels.txt']
     q_rels = {}
     for q_rel_file in NIST_qrels:
@@ -200,12 +197,15 @@ def get_data(source, type):
                 canard['History'] = canard.apply(
                     lambda row: trim_context(row['History']), axis=1)
                 canard = insert_first_turns(canard)
-                canard = carnard_helper(canard)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
-                canard['q_rels'] = [None for i in range(len(canard))]
-                
-            if data == 'cast_y1':
+                canard = carnard_helper(canard)
+                canard['conversation_history'] = canard.apply(
+                  lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
+                canard['all_manual'] = canard.apply(lambda row: append_turns(
+                  row['all_manual'], row['Rewrite']), axis=1)
+
+           if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
@@ -223,15 +223,15 @@ def get_data(source, type):
             if data == 'canard':
                 canard = pd.read_json(
                     'big_files/CANARD_Release/test.json')  # path to Canard
-                canard['History'] = canard.apply(
-                    lambda row: trim_context(row['History']), axis=1)
-                canard = insert_first_turns(canard)
-                canard = carnard_helper(canard)
+                canard['History'] = canard.apply(lambda row: trim_context(row['History']), axis=1)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
-                canard['q_rels'] = [None for i in range(len(canard))]
-                
-            if data == 'cast_y1':
+                canard = insert_first_turns(canard)
+                canard = carnard_helper(canard)
+                canard['conversation_history'] = canard.apply(lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
+                canard['all_manual'] = canard.apply(lambda row: append_turns(row['all_manual'], row['Rewrite']), axis=1)
+
+           if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
@@ -253,6 +253,7 @@ def get_data(source, type):
     result = parse_json_str(result, result_len)
 
     return result
+
 
 def download_from_url(url, dst):
     """
@@ -279,10 +280,11 @@ def download_from_url(url, dst):
     pbar.close()
     return file_size
 
+
 class Info_Plotter:
     def __init__(self):
         pass
-        
+
     def tabulate_rewrites(self, samples):
         table = wandb.Table(columns=["Raw query", "Re-write", "Manual", "Model output", "ndcg_cut_3", 'recall_1000'])
         for sample_obj in samples:
@@ -291,7 +293,7 @@ class Info_Plotter:
             recall_1000 = sample_obj['recall_1000'] if "recall_1000" in sample_obj else ""
             table.add_data(sample_obj['raw query'], sample_obj['re-write'], sample_obj['manual query'], model_output, ndcg_cut_3, recall_1000)
         return {'rewrites table': table}
-    
+
     def get_turn_counts(self, samples):
         counts = {}
         for turn in samples:
@@ -301,7 +303,7 @@ class Info_Plotter:
             else:
                 counts[id] = 1
         return counts
-    
+
     def per_turn_plots(self, samples):
         metrics = ['recall_500', 'recall_1000', 'ndcg_cut_3', 'ndcg_cut_5', 'ndcg_cut_1000', 'map_cut_1000']
         charts = {}
@@ -312,7 +314,7 @@ class Info_Plotter:
                 id = turn['q_id'].split('_')[1]
                 if id in metric_dict:
                     try:
-                        metric_dict[id] += turn[metric] #not all turns might have a given metric
+                        metric_dict[id] += turn[metric]  # not all turns might have a given metric
                     except:
                         pass
                 else:
@@ -320,12 +322,11 @@ class Info_Plotter:
 
             turns = [*metric_dict]
             values = [metric_dict[turn]/turn_counts[turn] for turn in turns]
-            
+
             fig, ax = plt.subplots()
             ax.set_ylabel(metric)
             ax.bar(turns, values)
-            
-            charts[f"per_turn_{metric}"] = wandb.Image(fig)
-            
-        return charts
 
+            charts[f"per_turn_{metric}"] = wandb.Image(fig)
+
+        return charts
