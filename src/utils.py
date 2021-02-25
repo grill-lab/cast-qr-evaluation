@@ -143,7 +143,7 @@ def carnard_helper(dataframe):
             current_query += 1
 
     renamed_dataframe['all_manual'] = all_manual
-    return renamed_dataframe[['conversation_history', 'query', 'all_manual']]
+    return renamed_dataframe[['conversation_history', 'query', 'all_manual', 'q_id']]
 
 
 def parse_json_str(json_str, result_len):
