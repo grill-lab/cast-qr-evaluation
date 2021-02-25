@@ -204,8 +204,8 @@ def get_data(source, type):
                   lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
                 canard['all_manual'] = canard.apply(lambda row: append_turns(
                   row['all_manual'], row['Rewrite']), axis=1)
-
-           if data == 'cast_y1':
+            
+            if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
@@ -231,7 +231,7 @@ def get_data(source, type):
                 canard['conversation_history'] = canard.apply(lambda row: append_turns(row['conversation_history'], row['query']), axis=1)
                 canard['all_manual'] = canard.apply(lambda row: append_turns(row['all_manual'], row['Rewrite']), axis=1)
 
-           if data == 'cast_y1':
+            if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
                 cast_y1 = pd.DataFrame(cast_y1_data, columns=[
