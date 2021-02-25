@@ -54,7 +54,6 @@ def main(args):
     seed_everything(args.seed)
     # useful functions
     get_doc_fn = CAsT_Index_store().get_doc
-    info_plotter = Info_Plotter()
 
     fine_tuning_samples = get_data(args.dataset, 'train')
     
@@ -103,11 +102,10 @@ def main(args):
     results_field = 'search_results'
 
     test_samples = get_data(['cast_y2'], 'test')[:args.num_eval_samples]
-    test_samples = Base_Info_Transform()(test_samples)
+    test_samples = Base_Info_Transform()(test_samples) # adding raw and manual queries
+    test_samples = Baselies_Info_Transform()(test_samples) # adding baseline system rewrites
 
     test_samples = re_writer.inference(test_samples, chunk_size=args.inference_chunk_size) # each sample should have a "re-write" field
-    rewrites_dict = info_plotter.tabulate_rewrites(test_samples)
-    logger.log_metrics(rewrites_dict)
 
     test_samples = bm25_transform(test_samples)
 
@@ -134,8 +132,6 @@ def main(args):
     
     eval_experiment = TREC_Eval_Command_Experiment(save_run_path=f"runs/{model_name}.run", save_eval_path=f"evals/{model_name}.eval", key_fields={'source_field':results_field})
     test_samples = eval_experiment(test_samples)
-    turn_plot_dict = info_plotter.per_turn_plots(test_samples)
-    logger.log_metrics(turn_plot_dict)
 
     for sample in test_samples:
         raw_query = sample['all_raw_queries'][-1]
@@ -154,6 +150,14 @@ def main(args):
             print("------------------------------------------------------------------")
             print()
         print("############################")
+        
+    info_plotter = Info_Plotter()
+    
+    turn_plot_dict = info_plotter.per_turn_plots(test_samples)
+    logger.log_metrics(turn_plot_dict)
+    
+    rewrites_dict = info_plotter.tabulate_rewrites(test_samples)
+    logger.log_metrics(rewrites_dict)
 
     print("############ OVERALL ############")
     eval_dict = eval_experiment.overall(test_samples)
