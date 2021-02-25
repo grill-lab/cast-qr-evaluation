@@ -6,6 +6,9 @@ from torch.nn import functional as F
 from torch import nn
 from tqdm import tqdm
 import re
+import csv
+import os
+import random
 
 from src.utils import chunks
 
@@ -27,14 +30,57 @@ class OracleReWriter():
             sample_obj["re-write"] = sample_obj['all_manual_queries'][-1]
         return samples
     
-class Transformer_Plus_Plus_Q_QuReTeC_Doc_Context():
-    def __init__(self, args):
-        "Transformer_Plus_Plus_Q_QuReTeC model from Vakulenko et al."
-        pass
+class TSV_Rewriter():
+    def __init__(self, tsv_files):
+        self.q_id_rewrite_lookup = {}
+        for baseline_path in tsv_files:
+            self.process_tsv(baseline_path)
+        
+    def process_tsv(self, baseline_path):
+        with open(baseline_path, 'r') as f:
+            tsvreader = csv.reader(f, delimiter="\t")
+            header = next(tsvreader)
+            basename = os.path.basename(baseline_path)
+            for conv_id, turn_id, q_id, rewrite, original in (tsvreader):
+                self.q_id_rewrite_lookup[q_id] = rewrite
+                
     def inference(self, samples, **kwargs):
         for sample_obj in samples:
-            sample_obj["re-write"] = sample_obj['6_Transformer_Plus_Plus_Q_QuReTeC_QnA.tsv']
+            q_id = sample_obj["q_id"]
+            sample_obj["re-write"] = self.q_id_rewrite_lookup[q_id]
         return samples
+    
+class Transformer_Plus_Plus_Q_QuReTeC_QA(TSV_Rewriter):
+    def __init__(self, args):
+        "Transformer_Plus_Plus_Q_QuReTeC with query and document context model for 2020 from Vakulenko et al."
+        self.baseline_rewrites_files = [
+            'rewrites/2020/6_Transformer_Plus_Plus_Q_QuReTeC_QnA.tsv'
+        ]
+        super().__init__(self.baseline_rewrites_files)
+
+class Transformer_Plus_Plus_Q_QuReTeC_Q(TSV_Rewriter):
+    def __init__(self, args):
+        "Transformer_Plus_Plus_Q_QuReTeC with only query context for 2019 model from Vakulenko et al."
+        self.baseline_rewrites_files = [
+            'rewrites/2019/6_Transformer_Plus_Plus_Q_QuReTeC_Q.tsv',
+        ]
+        super().__init__(self.baseline_rewrites_files)
+
+class Self_learn_Q_QuReTeC_QnA(TSV_Rewriter):
+    def __init__(self, args):
+        "Transformer_Plus_Plus_Q_QuReTeC with only query context for 2019 model from Vakulenko et al."
+        self.baseline_rewrites_files = [
+            'rewrites/2020/7_Self_learn_Q_QuReTeC_QnA.tsv',
+        ]
+        super().__init__(self.baseline_rewrites_files)
+    
+class GPT2_Organisers(TSV_Rewriter):
+    def __init__(self, args):
+        "Organiser GPT2 rewriter from Few-Shot Generative Conversational Query Rewriting Yu, Xiong et al."
+        self.baseline_rewrites_files = [
+            'rewrites/2020/12_GPT2.tsv',
+        ]
+        super().__init__(self.baseline_rewrites_files)
 
 class BART_ReWriter(LightningModule):
     def __init__(self, args):
@@ -123,13 +169,20 @@ class BART_ReWriter(LightningModule):
                 new_samples += chunk_samples
             return new_samples
         
-class BART_ReWriter_Order_Switch(BART_ReWriter):
+class BART_ReWriter_Query_Order_Switch(BART_ReWriter):
     def collate(self, input_samples):
         """
         input_samples: [dict]: these are samples obtained through the __getitem__ method
         """
         collated_samples = {}
-        input_text = [' '.join(sample['all_raw_queries']) for sample in input_samples]
+        input_text = []
+        for sample in input_samples:
+            initial_queries = sample['all_raw_queries'][:-1]
+            random.shuffle(initial_queries)
+            new_raw_query_order = initial_queries + sample['all_raw_queries'][-1:]
+            text = ' '.join(new_raw_query_order)
+            input_text.append(text)
+        
         target_text = [sample['all_manual_queries'][-1] for sample in input_samples]
         
         input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
@@ -276,3 +329,32 @@ class T5_ReWriter(BART_ReWriter):
         super().__init__(args)
         self.transformer = T5ForConditionalGeneration.from_pretrained('t5-base')
         self.tokenizer = T5Tokenizer.from_pretrained('t5-base')
+
+class T5_holoo(BART_ReWriter):
+    def __init__(self, args):
+        super().__init__(args)
+        self.transformer = T5ForConditionalGeneration.from_pretrained('castorini/t5-base-canard')
+        self.tokenizer = T5Tokenizer.from_pretrained('t5-base')
+        self.to(f'cuda:{args.gpu_id}')
+        
+    def inference(self, input_samples, max_len=200, chunk_size=64):
+        """
+        input_samples: [{'all_raw_queries':['sadfad','adfad'], ...}]
+        """
+        self.eval()
+        with torch.no_grad():
+            new_samples = []
+            for chunk_samples in tqdm(list(chunks(input_samples, chunk_size)), desc="Re-writing"):
+                input_text = [' ||| '.join(sample['all_raw_queries']) for sample in chunk_samples]
+                input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+                input_ids = input_tok_obj['input_ids'].to(self.device)
+                input_att_mask = input_tok_obj['attention_mask'].to(self.device)
+
+                output_ids = self.transformer.generate(input_ids, attention_mask=input_att_mask, num_beams=4, max_length=max_len, early_stopping=True)
+                output_text = self.tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+
+                for sample, out_text in zip(chunk_samples, output_text):
+                    sample['re-write'] = out_text
+                    sample['model output'] = out_text
+                new_samples += chunk_samples
+            return new_samples
