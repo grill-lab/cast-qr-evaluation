@@ -49,7 +49,7 @@ class RUN_File_Transform_Exporter():
 class TREC_Eval_Command_Experiment():
     def __init__(self, trec_eval_command='trec_eval -q -c -M1000  -m ndcg_cut.3,5,10,15,20,100,1000 -m all_trec qRELS RUN_FILE',
                 relevant_metrics=['ndcg_cut_3', 'ndcg_cut_5', 'ndcg_cut_1000', 'map_cut_1000', 'recall_500', 'recall_1000'],
-                q_rel_file='small_files/2020qrels.txt', save_run_path='/tmp/temp_run_by_carlos.run', eval_path='evals/latest.eval', **kwargs):
+                q_rel_file='small_files/2020qrels.txt', save_run_path='/tmp/temp_run_by_carlos.run', save_eval_path='evals/latest.eval', **kwargs):
         '''
         This is an experiment transform that uses the official trec_eval command to compute scores for each query 
         and return valid results according to the command specified.
@@ -57,7 +57,7 @@ class TREC_Eval_Command_Experiment():
         self.trec_eval_command = trec_eval_command
         self.relevant_metrics = relevant_metrics
         self.q_rel_file = q_rel_file
-        self.eval_path = eval_path
+        self.save_eval_path = save_eval_path
         
         self.temp_run_file = save_run_path
         self.run_file_exporter = RUN_File_Transform_Exporter(self.temp_run_file, model_name='temp_model_by_carlos', **kwargs)
@@ -69,11 +69,11 @@ class TREC_Eval_Command_Experiment():
         '''
         self.run_file_exporter(samples)
         resolved_command = self.trec_eval_command.replace('qRELS', self.q_rel_file).replace('RUN_FILE', self.temp_run_file)
-        print(f'Running the following command: {resolved_command} > {self.eval_path}')
-        os.makedirs(os.path.dirname(self.eval_path), exist_ok=True)
-        os.system(f'{resolved_command} > {self.eval_path}')
+        print(f'Running the following command: {resolved_command} > {self.save_eval_path}')
+        os.makedirs(os.path.dirname(self.save_eval_path), exist_ok=True)
+        print(os.system(f'{resolved_command} > {self.save_eval_path}'))
         
-        with open(self.eval_path, 'r') as eval_f:
+        with open(self.save_eval_path, 'r') as eval_f:
             eval_results = {}
             for row in eval_f:
                 if not any([metric in row for metric in self.relevant_metrics]):

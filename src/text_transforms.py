@@ -1,5 +1,7 @@
 from pyserini.search import SimpleSearcher
 from transformers import BertTokenizer
+import csv
+import os
 
 
 class CAsT_Index_store():
@@ -18,6 +20,34 @@ class Base_Info_Transform():
         for sample_obj in samples:
             sample_obj["raw query"] = sample_obj['all_raw_queries'][-1]
             sample_obj["manual query"] = sample_obj['all_manual_queries'][-1]
+        return samples
+    
+class Baselies_Info_Transform():
+    def __init__(self):
+        self.baseline_rewrites_files = [
+            'rewrites/2019/6_Transformer_Plus_Plus_Q_QuReTeC_Q.tsv',
+            'rewrites/2020/6_Transformer_Plus_Plus_Q_QuReTeC_QnA.tsv'
+        ]
+        
+        self.q_id_rewrite_lookup = {}
+        for baseline_path in self.baseline_rewrites_files:
+            self.process_tsv(baseline_path)
+        
+    def process_tsv(self, baseline_path):
+        with open(baseline_path, 'r') as f:
+            tsvreader = csv.reader(f, delimiter="\t")
+            header = next(tsvreader)
+            basename = os.path.basename(baseline_path)
+            for conv_id, turn_id, q_id, rewrite, original in (tsvreader):
+                if q_id not in self.q_id_rewrite_lookup:
+                    self.q_id_rewrite_lookup[q_id] = {}
+                self.q_id_rewrite_lookup[q_id][basename] = rewrite
+        
+    def __call__(self, samples):
+        for sample_obj in samples:
+            q_id = sample_obj["q_id"]
+            if q_id in self.q_id_rewrite_lookup:
+                sample_obj.update()
         return samples
             
 class Document_Resolver_Transform():

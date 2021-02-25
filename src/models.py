@@ -37,7 +37,7 @@ class BART_ReWriter(LightningModule):
         """
         super().__init__()
         self.lr = getattr(args, "lr")
-        self.transformer = BartForConditionalGeneration.from_pretrained('facebook/bart-large')
+        self.transformer = BartForConditionalGeneration.from_pretrained('facebook/bart-large', force_bos_token_to_be_generated=True)
         self.tokenizer = BartTokenizer.from_pretrained('facebook/bart-large')
         
     def forward(self, encoder_input, decoder_input):
@@ -114,6 +114,27 @@ class BART_ReWriter(LightningModule):
                 new_samples += chunk_samples
             return new_samples
         
+class BART_ReWriter_Order_Switch(BART_ReWriter):
+    def collate(self, input_samples):
+        """
+        input_samples: [dict]: these are samples obtained through the __getitem__ method
+        """
+        collated_samples = {}
+        input_text = [' '.join(sample['all_raw_queries']) for sample in input_samples]
+        target_text = [sample['all_manual_queries'][-1] for sample in input_samples]
+        
+        input_tok_obj = self.tokenizer(input_text, return_tensors='pt', padding=True)
+        collated_samples['input_ids'] = input_tok_obj['input_ids']
+        collated_samples['input_att_mask'] = input_tok_obj['attention_mask']
+        
+        input_tok_obj = self.tokenizer(target_text, return_tensors='pt', padding=True)
+        collated_samples['decoder_input_ids'] = input_tok_obj['input_ids'][:,:-1]
+        collated_samples['decoder_target_ids'] = input_tok_obj['input_ids'][:,1:]
+        collated_samples['decoder_att_mask'] = input_tok_obj['attention_mask'][:,1:]
+        
+        return collated_samples
+    
+        
 class BART_All_Queries_ReWriter(BART_ReWriter):
     def collate(self, input_samples):
         """
@@ -173,7 +194,7 @@ class BART_All_Queries_ReWriter(BART_ReWriter):
             
         return {"loss":loss, 'logits':logits, 'log': {'loss': {'train': loss}}}
     
-    def inference(self, input_samples, max_len=40, chunk_size=64):
+    def inference(self, input_samples, max_len=200, chunk_size=64):
         """
         input_samples: [{'all_raw_queries':['sadfad','adfad'], ...}]
         """
@@ -194,9 +215,51 @@ class BART_All_Queries_ReWriter(BART_ReWriter):
                 for sample, out_text in zip(chunk_samples, output_text):
                     all_rewritten_queries = re.findall('[^.?,]+.?', out_text)
                     sample['model output'] = out_text
-                    sample['re-write'] = all_rewritten_queries[-1]
+                    sample['re-write'] = all_rewritten_queries[-1] if len(all_rewritten_queries[-1])>20 else ' '.join(all_rewritten_queries[:-2])
                 new_samples += chunk_samples
             return new_samples
+        
+class BART_ReWriter_BERT_Weights(BART_ReWriter):
+    def pre_train_process_transform(self, samples, BERT_dir='big_files/monoBERT'):
+        BERT_reranker = BertForPassageRanking.from_pretrained(BERT_dir, from_tf=True)
+        BERT_tokenizer = BertTokenizer('big_files/duoBERT/vocab.txt')
+        get_doc_fn = CAsT_Index_store().get_doc
+        
+        for sample in samples:
+            query = sample['all_manual_queries'][-1]
+            doc = get_doc_fn
+            if len(BERT_tokenizer.tokenize(query) != len(self.tokenizer.tokenize(query))):
+                uniform_val = 1/len(self.tokenizer.tokenize(query))
+                sample['query_token_weights'] = [uniform_val]*len(self.tokenizer.tokenize(query))
+            else:
+                input_obj = BERT_tokenizer(query, text_pair=doc)
+                input_ids = input_obj['input_ids']
+                token_type_ids = input_obj['token_type_ids']
+                attention_mask = input_obj['attention_mask']
+                outputs = BERT_reranker(input_obj['input_ids'], attention_mask=input_obj['attention_mask'], token_type_ids=input_obj['token_type_ids'], output_attentions=True)
+        
+    def training_step(self, batch, batch_idx):
+        encoder_input = batch["input_ids"]
+        input_mask = batch['input_att_mask']
+        
+        decoder_input = batch['decoder_input_ids']
+        decoder_target = batch['decoder_target_ids']
+        decoder_mask = batch['decoder_att_mask']
+                
+        outputs = self.transformer(encoder_input, 
+                            decoder_input_ids=decoder_input, 
+                            attention_mask=input_mask, 
+                            decoder_attention_mask=decoder_mask, 
+                            use_cache=False)  
+        logits = outputs[0]
+                
+        loss_fct = nn.CrossEntropyLoss()
+        loss = loss_fct(logits.view(-1, self.transformer.config.vocab_size), decoder_target.view(-1))
+        if torch.isnan(loss):
+            print(f'input_ids is nan:{torch.isnan(batch["input_ids"])}, decoder_input_ids is nan:{torch.isnan(batch["decoder_input_ids"])}')
+            print(f'logits={logits}')
+            
+        return {"loss":loss, 'logits':logits}
 
         
 class T5_ReWriter(BART_ReWriter):
