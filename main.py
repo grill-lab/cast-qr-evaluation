@@ -36,6 +36,7 @@ parser.add_argument('--from_checkpoint', type=str, default='')
 parser.add_argument('--num_eval_samples', type=int, default=-1)
 parser.add_argument('--wandb_id', type=str, default=wandb.util.generate_id())
 parser.add_argument('--name', type=str, default=None)
+parser.add_argument('--index', type=str, default="big_files/CAsT_collection_with_meta.index")
 
 parser.add_argument('--gpu_id', type=str, default='0')
 parser.add_argument('--lr', type=float, default=0.0001)
@@ -54,11 +55,14 @@ def main(args):
     seed_everything(args.seed)
     # useful functions
     get_doc_fn = CAsT_Index_store().get_doc
-
-    fine_tuning_samples = get_data(args.dataset, 'train')
     
+    print('Getting training samples')
+    fine_tuning_samples = get_data(args.dataset, 'train')
+    print(fine_tuning_samples[0])
+    
+    print('Loading base info')
     fine_tuning_samples = Base_Info_Transform()(fine_tuning_samples)
-    fine_tuning_samples = Baselies_Info_Transform()(fine_tuning_samples)
+    print(fine_tuning_samples[0])
 
     model_name = args.name if args.name else f"{args.rewriter}_data_{'_'.join(args.dataset)}_skipNR_{args.skip_neural_rerank}_epochs_{args.epochs}_batchSz_{args.batch_sz}_lr_{args.lr}_wandbID_{args.wandb_id}"
     logger = WandbLogger(name=model_name,project='CAsT_query_rewriting', id=args.wandb_id)
@@ -97,13 +101,18 @@ def main(args):
 
 
     # Evaluate model
-    bm25_transform = BM25_Search_Transform(hits=args.hits, 
+    bm25_transform = BM25_Search_Transform(hits=args.hits,
+                                           index_dir=args.index,
                                            key_fields={'query_field':'re-write', 'target_field':'search_results'})
     results_field = 'search_results'
 
     test_samples = get_data(['cast_y2'], 'test')[:args.num_eval_samples]
+    print('Loading base info')
     test_samples = Base_Info_Transform()(test_samples) # adding raw and manual queries
+    print(test_samples[0])
+    print('Loading baseline info')
     test_samples = Baselies_Info_Transform()(test_samples) # adding baseline system rewrites
+    print(test_samples[0])
 
     test_samples = re_writer.inference(test_samples, chunk_size=args.inference_chunk_size) # each sample should have a "re-write" field
 

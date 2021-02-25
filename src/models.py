@@ -26,6 +26,15 @@ class OracleReWriter():
         for sample_obj in samples:
             sample_obj["re-write"] = sample_obj['all_manual_queries'][-1]
         return samples
+    
+class Transformer_Plus_Plus_Q_QuReTeC_Doc_Context():
+    def __init__(self, args):
+        "Transformer_Plus_Plus_Q_QuReTeC model from Vakulenko et al."
+        pass
+    def inference(self, samples, **kwargs):
+        for sample_obj in samples:
+            sample_obj["re-write"] = sample_obj['6_Transformer_Plus_Plus_Q_QuReTeC_QnA.tsv']
+        return samples
 
 class BART_ReWriter(LightningModule):
     def __init__(self, args):

@@ -47,7 +47,7 @@ class Baselies_Info_Transform():
         for sample_obj in samples:
             q_id = sample_obj["q_id"]
             if q_id in self.q_id_rewrite_lookup:
-                sample_obj.update()
+                sample_obj.update(self.q_id_rewrite_lookup[q_id])
         return samples
             
 class Document_Resolver_Transform():

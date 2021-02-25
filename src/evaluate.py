@@ -19,7 +19,7 @@ class RUN_File_Transform_Exporter():
         '''
         samples: [dict]: [{'q_id':"xxx", 'search_results':[("MARCO_xxx", 0.63)...]},...]
         '''
-        
+        os.makedirs(os.path.dirname(self.model_outputs_path), exist_ok=True)
         with open(self.model_outputs_path, 'w') as out_file:
             out_lst = []
             for s in samples:
