@@ -143,7 +143,7 @@ def carnard_helper(dataframe):
             current_query += 1
 
     renamed_dataframe['all_manual'] = all_manual
-    return renamed_dataframe[['conversation_history', 'query', 'all_manual', 'q_id']]
+    return renamed_dataframe[['conversation_history', 'query', 'all_manual']]
 
 
 def parse_json_str(json_str, result_len):
@@ -200,9 +200,10 @@ def get_data(source, type):
                 canard['History'] = canard.apply(
                     lambda row: trim_context(row['History']), axis=1)
                 canard = insert_first_turns(canard)
+                canard = carnard_helper(canard)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
-                canard = carnard_helper(canard)
+                
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
@@ -224,9 +225,10 @@ def get_data(source, type):
                 canard['History'] = canard.apply(
                     lambda row: trim_context(row['History']), axis=1)
                 canard = insert_first_turns(canard)
+                canard = carnard_helper(canard)
                 canard['canonical_doc'] = [None for i in range(len(canard))]
                 canard['q_id'] = [None for i in range(len(canard))]
-                canard = carnard_helper(canard)
+                
             if data == 'cast_y1':
                 cast_y1_data = cast_helper(
                     'big_files/CAsT_2019_evaluation_topics_v1.0.json', 1, q_rels)
