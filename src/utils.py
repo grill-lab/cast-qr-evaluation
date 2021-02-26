@@ -145,6 +145,10 @@ def carnard_helper(dataframe):
     return renamed_dataframe
 
 
+def append_turns(arr, turn):
+    arr.append(turn)
+    return arr
+
 def parse_json_str(json_str, result_len):
     full_data = json.loads(json_str)
     result_arr = []
@@ -330,3 +334,64 @@ class Info_Plotter:
             charts[f"per_turn_{metric}"] = wandb.Image(fig)
 
         return charts
+
+    
+
+
+def get_json(result_path):
+    '''
+    Return the json file as a json string
+    '''
+    with open(result_path) as json_file:
+        return json.load(json_file)
+
+
+
+def build_df_list(paths):
+    dfs = []
+    model_names = []
+    for path in paths:
+        result = get_json(path)
+        path_components = path.split('/')
+        model_name = path_components[2].split('.')[0]
+        model_names.append(model_name)
+        result = pd.DataFrame(result)
+        result = result[['q_id', 're-write', 'recall_500', 'recall_1000', 'ndcg_cut_3',
+                         'ndcg_cut_5', 'ndcg_cut_1000', 'map_cut_1000']]  # just keep metrics and rewrites
+        dfs.append(result)
+    
+    return dict(zip(model_names, dfs))
+
+
+def calculate_deltas(base_model, dataframes, metrics, sort_by):
+    '''
+    dataframes: resilt of build_df_list model
+    sort_by: is a list of values to sort the dataframes by. Format as delta_${metric}
+    '''
+    base_model_dataframe = dataframes[base_model]
+    other_models = list(dataframes.keys())
+    other_models.remove(base_model)
+    
+    results = []
+    
+    for model in other_models:
+        for metric in metrics:
+            dataframes[model]['delta_{}'.format(
+                metric)] = base_model_dataframe[metric] - dataframes[model][metric]
+        
+        dataframes[model].sort_values(
+            by=sort_by, ascending=False, inplace=True)
+        dataframes[model].reset_index(drop=True, inplace=True)
+        results.append(dataframes[model])
+
+    #returns a dictionary of dataframes.
+    return dict(zip(other_models, results))
+
+    '''
+    Deltas Sample Usage:
+    df_list = build_df_list(['/content/TransformerPP_QURETEC_YesMetaIndex_BM25.run.json', '/content/T5_holoo_only_queries.run.json', '/content/BART_loLT_rewrite_quality_check.run.json'])
+    
+    test = calculate_deltas('BART_loLT_rewrite_quality_check', df_list, ['ndcg_cut_3', 'recall_1000'], ['delta_ndcg_cut_3'])
+    
+    test['T5_holoo_only_queries'].head(20)
+    '''
